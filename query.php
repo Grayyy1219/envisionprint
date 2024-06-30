@@ -29,8 +29,6 @@ if ($username != 0) {
 }
 
 
-
-
 $queryPage = mysqli_query($con, "SELECT * FROM page WHERE ItemID IN (1, 2, 3, 4, 5)");
 while ($rowPage = mysqli_fetch_assoc($queryPage)) {
     if ($rowPage["ItemID"] == 1) {
@@ -45,6 +43,7 @@ while ($rowPage = mysqli_fetch_assoc($queryPage)) {
         $color = $rowPage["value"];
     }
 }
+
 echo "
 <link rel='icon' href='css/img/logo.ico'>
 <style>
@@ -52,7 +51,7 @@ echo "
     --text: $color;
     --background: #ffffff;
     --primary: $backgroundcolor;
-    --secondary: #005dab;
+    --secondary: #be2aec;
     --btext: #ffffff;
 }
 p,h1{

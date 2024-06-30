@@ -1,86 +1,86 @@
 .login p:hover {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 .slideshow-container {
-    position: relative;
-    max-width: 75%;
-    margin: auto;
-    overflow: hidden;
+  position: relative;
+  max-width: 75%;
+  margin: auto;
+  overflow: hidden;
 }
 
 .slides-container {
-    margin-top: 25px;
-    display: flex;
-    transition: transform 1s ease-in-out;
+  margin-top: 25px;
+  display: flex;
+  transition: transform 1s ease-in-out;
 }
 
 .slide {
-    flex: 0 0 auto;
-    width: 100%;
+  flex: 0 0 auto;
+  width: 100%;
 }
 
 .slideimg {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
 }
 
 .prev-button,
 .next-button {
-
-    transition: all 0.5s ease;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.5);
-    color: rgb(0, 0, 0);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 2;
-    border-radius: 10px;
+  transition: all 0.5s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
+  border-radius: 10px;
 }
 
 .prev-button {
-    left: 16px;
+  left: 16px;
 }
 
 .next-button {
-    right: 16px;
+  right: 16px;
 }
 
 .dot-container {
-    text-align: center;
-    margin-top: 10px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .dot {
-    transition: all 0.5s ease-in-out;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    border: 0.1px solid rgba(0, 0, 0, 0.34);
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  border: 0.1px solid rgba(0, 0, 0, 0.34);
 }
 
 .active-dot {
-    background-color: #333333d2;
-    width: 50px;
-    border-radius: 30px;
+  background-color: #333333d2;
+  width: 50px;
+  border-radius: 30px;
 }
 
 .slideshow-container:hover button {
-    background-color: rgba(255, 255, 255, 0.75);
-    transform: translateY(-50%) scale(1.05);
+  background-color: rgba(255, 255, 255, 0.75);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .slideshow-container:hover .prev-button {
-    left: 12.5px;
+  left: 12.5px;
 }
 
 .slideshow-container:hover .next-button {
-    right: 12.5px;
+  right: 12.5px;
 }

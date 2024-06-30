@@ -1,6 +1,6 @@
 <div id="shop">
     <div class="categories">
-        <h1 style="text-transform: uppercase;">Categories</h1>
+        <h1 style="text-transform: uppercase;">Explore all categories</h1>
     </div>
     <div class="shop">
         <?php

@@ -3,13 +3,13 @@
         <div class="logo">
             <a href='Landingpage.php#'>
                 <img src='<?= $logo ?>' height='55px'>
-                <h1>Envision Print</h1>
+                <h1>EnVision Print</h1>
             </a>
         </div>
 
         <div class="searchbar">
-            <input type="text" class="searchinp searchbar" id="searchbar" onchange="loadXMLDoc('search')" placeholder=" Search">
-            <button class="searchbtn"><img src="css/img/searchicon.png" width="25" style="filter: invert(1);"></button>
+            <input type="text" class="searchinp searchbar" id="searchbar" onchange="loadXMLDoc('search')" placeholder="BINI Photocards">
+            <button class="searchbtn">Search</button>
         </div>
 
         <?php
@@ -54,3 +54,39 @@
         </div>
     </div>
 </nav>
+<?php include("popups.php"); ?>
+<script>
+    var sortValue;
+    var filterValue;
+    var searchValue;
+
+    document.getElementById('searchbar').addEventListener('keyup', function() {
+        searchValue = document.getElementById("searchbar").value;
+        loadXMLDoc("search");
+
+        if (searchValue.trim() === "") {
+            document.querySelector(".output").style.display = "none";
+        } else {
+            document.querySelector(".output").style.display = "flex";
+        }
+    });
+
+    function loadXMLDoc(use) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (use == "search") {
+                    console.log("open Search function");
+                    getSearch(this);
+                }
+            }
+        };
+        xmlhttp.open("GET", "product.php?search=" + searchValue, true);
+        xmlhttp.send();
+    }
+
+    function getSearch(xml) {
+        var searchResults = xml.responseText;
+        document.getElementById("demo").innerHTML = searchResults;
+    }
+</script>
