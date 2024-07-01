@@ -27,7 +27,7 @@ try {
         $email = $_POST['email'];
     }
     // Recipients
-    $mail->setFrom("$email", 'Ric Events');
+    $mail->setFrom("$email", 'EnVision Print');
     $mail->addAddress("$email", '');
 
     $verificationCode = rand(10000, 99999);
@@ -37,9 +37,9 @@ try {
     $verificationLink = "http://localhost/envisionprint/verify.php?code=$verificationCode";
 
     $mail->isHTML(true);
-    $mail->Subject = 'Verify Your Event Management System Account - Start Planning Your Events!';
-    $mail->Body = "Thank you for signing up with our Event Management System! To keep your account secure, please verify your email address by clicking on the following link: <br> <b><a href='$verificationLink'>Verify Your Email</a></b> <br> Your verification code is: <h1>$verificationCode</h1> <br> If you did not sign up for our Event Management System, please disregard this email.<br><br>Thank you for choosing our Event Management System to plan your events.";
-    $mail->AltBody = 'Thank you for signing up with our Event Management System! To keep your account secure, please verify your email address using the provided verification link and code. If you did not sign up, please disregard this email.';
+    $mail->Subject = 'Confirm Your EnVision Print Account - Dive into Med Bliss!';
+    $mail->Body = "Thank you for creating an account with EnVision Print!. To keep your account secure, please verify your email address by clicking on the following link: <br> <b><a href='$verificationLink'>Verify Your Email</a></b> <br> Your verification code is: <h1>$verificationCode</h1> <br> If you did not create an account with EnVision Print, please disregard this email.<br><br>Thank you for choosing EnVision Print and happy shopping!";
+    $mail->AltBody = 'Thank you for creating an account with EnVision Print!. To keep your account secure, please verify your email address using the provided verification link and code. If you did not sign up, please disregard this email.';
 
 
     // Send the email

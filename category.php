@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Project</title>
+    <title>EnVision Print</title>
     <?php
     include("connect.php");
     include("query.php");
@@ -78,33 +78,29 @@
                             </div>
                             <div class="tocart">
                                 <h4>₱<?= $Price ?></h4>
-                                <div class='buy' onclick="submitForm('itempage.php?Itemname=<?= $ItemName ?>&Category=<?= $category ?>&ItemImage=<?= $ItemImage ?>&Price=<?= $Price ?>&Solds=<?= $Solds ?>&Quantity=<?= $Quantity ?>&ItemID=<?= $ItemID ?>&Description=<?= $Description ?>')">
+                                <div class='buy' onclick="submitForm('itempage.php?ItemID=<?= $ItemID ?>')">
                                     <input type='submit' style='all:unset' class='div-29' value='Add to cart'>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <?php
-                }
-
-
-
-                echo "</div>";
-
-                echo "</br></br>
-            <div id='pagination-container_category' class='pageno'><b>Page: </b>";
-
+                } ?>
+            </div>
+            </br></br>
+            <div id='pagination-container_category' class='pageno'><b>Page: </b>
+                <?php
                 for ($i = 1; $i <= $totalPages; $i++) {
                     $activeClass = ($i == $currentPage) ? 'selected-page' : '';
                     echo "<a class='pagination-link $activeClass' href='?category=$category&page=$i'>$i</a>";
+                } ?>
+            </div>
+            <script>
+                function submitForm(action) {
+                    document.getElementById("myForm").action = action;
+                    document.getElementById("myForm").submit();
                 }
-                echo "</div>"; ?>
-                <script>
-                    function submitForm(action) {
-                        document.getElementById("myForm").action = action;
-                        document.getElementById("myForm").submit();
-                    }
-                </script>
+            </script>
     </form>
     </div>
     <section>
