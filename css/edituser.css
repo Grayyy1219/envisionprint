@@ -1,0 +1,99 @@
+.btn-save input {
+  display: none;
+}
+.wedit {
+  display: flex;
+  border: 1px solid #000000;
+  min-height: 344px;
+  /* margin-top: 50px; */
+  align-items: center;
+  border-radius: 5px;
+  padding: 30px;
+  gap: 20px;
+  background: white;
+}
+.weditimg {
+  width: 238px;
+  height: 272px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.weditimg img {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+}
+div#w1 {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.border {
+  position: relative;
+  margin: 0 0 -23px 7px;
+  z-index: 2;
+  background: white;
+  /* border: solid 1px; */
+  border-radius: 10px;
+  padding: 5px 5px 5px 10px;
+  width: 64px;
+}
+.weditimg label {
+  margin: 0 auto 15px;
+  padding: 10px 0;
+  border: 1px solid var(--primary);
+  font-size: 12px;
+  transition: all 0.2s ease-in;
+}
+.btn-upload-img {
+  width: 150px;
+  color: var(--primary);
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.btn-upload-img input {
+  display: none;
+}
+.btnsave {
+  margin: 9px 0 0 auto;
+  padding: 10px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 12px;
+  width: 101px;
+  transition: all 0.3s ease-in;
+}
+.btnsave:hover {
+  background-color: var(--secondary);
+}
+.weditimg label:hover {
+  background: var(--primary);
+  color: white;
+}
+.btn-save input {
+  display: none;
+}
+#profileimg {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+#profileimg.fade-out {
+  opacity: 0;
+}
+.profileImage {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.weitem .email {
+  padding: 3px 0 5px 5px;
+}

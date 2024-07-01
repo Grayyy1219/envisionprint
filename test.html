@@ -1,1 +1,570 @@
-<div class="loginpopup"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta http-equiv="refresh" content="1"> -->
+    <title>EnVision Print</title>
+
+    <link rel="icon" href="css/img/logo.ico" />
+    <style>
+      :root {
+        --text: #000000;
+        --background: #ffffff;
+        --primary: #b15eff;
+        --secondary: #be2aec;
+        --btext: #ffffff;
+      }
+      p,
+      h1 {
+        color: var(--text);
+      }
+    </style>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/slideshow.css" />
+    <link rel="stylesheet" href="css/landingpage.css" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="header">
+        <div class="logo">
+          <a href="Landingpage.php#">
+            <img src="css/img/logo.png" height="55px" />
+            <h1>EnVision Print</h1>
+          </a>
+        </div>
+
+        <div class="searchbar">
+          <input
+            type="text"
+            class="searchinp searchbar"
+            id="searchbar"
+            onchange="loadXMLDoc('search')"
+            placeholder="BINI Photocards"
+          />
+          <button class="searchbtn">Search</button>
+        </div>
+
+        <div class="profile">
+          <img src="css/img/new.png" width="35" height="35" id="currentuser" />
+          <div id="inout"></div>
+          <div class="carts">
+            <a href="cart.php"
+              ><img
+                src="css/img/shopping-cart.png"
+                width="22"
+                id="currentuser"
+              />
+              <div class="cartcount">0</div></a
+            >
+            <a onclick="showSettingsPopup()"
+              ><img src="css/img/setting.png" width="22" id="profile"
+            /></a>
+          </div>
+        </div>
+      </div>
+      <div class="output" style="display: none">
+        <div id="demo"></div>
+      </div>
+    </nav>
+    <div class="popup-overlay"></div>
+    <div id="spopup-overlay"></div>
+    <div id="SettingsPopup" class="spopup">
+      <div class="popup-content">
+        <span class="close" onclick="closeSettingsPopup()"><b>&times;</b></span>
+        <div class="sdiv">
+          <!-- <form action="" class="settings" method="post" enctype="multipart/form-data"> -->
+          <div class="profileimg">
+            <p>
+              <img
+                src="css/img/new.png"
+                width="200"
+                height="200"
+                style="object-fit: cover"
+              />
+            </p>
+            <br /><br />
+            <p class="name"><b>lance Musngi</b></p>
+            <p class="emaillink">lance.musngi@gmail.com</p>
+          </div>
+          <div class="ssbuttons">
+            <div class="settingbtn">
+              <a href="edituser.php">
+                <div class="inbtn">
+                  <p style="color: rgb(0, 0, 0)">Edit Basic Information</p>
+                </div>
+              </a>
+              <a href="editpass.php">
+                <div class="inbtn">
+                  <p style="color: rgb(0, 0, 0)">Change Password</p>
+                </div>
+              </a>
+              <a href="history.php">
+                <div class="inbtn">
+                  <p style="color: rgb(0, 0, 0)">Purchase History</p>
+                </div>
+              </a>
+            </div>
+
+            <a href="logout.php">
+              <div class="LogOut">
+                <p>Log Out</p>
+              </div>
+            </a>
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+    <div id="LoginPopup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closeLoginPopup()"><b>&times;</b></span>
+        <div class="form-box">
+          <form
+            action="checkuser.php"
+            class="form"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <span class="title">Envision Print</span>
+            <div class="form-container">
+              <span class="subtitle"
+                >Welcome back! Please sign in to your account.</span
+              >
+              <input
+                type="text"
+                class="input2"
+                id="user"
+                name="user"
+                placeholder="Username"
+                required
+              />
+              <input
+                type="password"
+                class="input2"
+                name="pass"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <input type="submit" class="submit" name="submit" value="Login" />
+          </form>
+          <div class="form-section">
+            <p>
+              Don't have an account? <a href="#" class="ssignupb">Sign up</a>
+            </p>
+          </div>
+          <div class="form-section">
+            <p><a href="forgetpage.php" class="aforgot">Forgot password?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="SignupPopup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closeSignupPopup()"><b>&times;</b></span>
+        <div class="form-box">
+          <form
+            action="createuser.php"
+            class="form"
+            method="post"
+            enctype="multipart/form-data"
+            onsubmit="return validateForm()"
+          >
+            <span class="title">Sign Up</span>
+            <div class="form-container">
+              <span class="subtitle"
+                >Create a free account with your details.</span
+              >
+
+              <div class="input-row">
+                <input
+                  type="text"
+                  class="input2"
+                  placeholder="First Name"
+                  name="txtfname"
+                  required
+                />
+                <input
+                  type="text"
+                  class="input2"
+                  placeholder="Last Name"
+                  name="txtlname"
+                  required
+                />
+              </div>
+              <input
+                type="text"
+                class="input2"
+                placeholder="Username"
+                name="txtusername"
+                required
+              />
+              <input
+                type="password"
+                class="input2"
+                placeholder="Password"
+                name="txtpassword"
+                id="password"
+                required
+              />
+              <input
+                type="password"
+                class="input2"
+                placeholder="Confirm Password"
+                name="txtcpassword"
+                id="confirmPassword"
+                required
+              />
+              <input
+                type="email"
+                class="input2"
+                placeholder="Email"
+                name="txtemail"
+                required
+              />
+            </div>
+            <input type="submit" class="submit" name="submit" value="Sign Up" />
+            <div class="form-section">
+              <p>
+                Already have an account? <a href="#" class="sloginb">Log In</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="VerificationPopup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closeVerificationPopup()"
+          ><b>&times;</b></span
+        >
+        <div class="form-box">
+          <form
+            action="createuser.php"
+            class="form"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="form-container">
+              <h2>Email Verification Required</h2>
+              <p>
+                Your account is not verified yet. Please check your email for
+                the verification link.
+              </p>
+              <p>
+                If you did not receive the email, click the button below to
+                resend the verification email.
+              </p>
+              <input
+                type="hidden"
+                name="email"
+                value="lance.musngi@gmail.com"
+              />
+              <input
+                type="text"
+                name="code"
+                class="input2"
+                id="verificationCodeInput"
+                placeholder="Enter code"
+              />
+            </div>
+            <button
+              id="submitVerificationCode"
+              class="submit"
+              formaction="process.php"
+            >
+              Submit
+            </button>
+            <div class="form-section">
+              <p>Did not receive the email? <a href="mail.php">Resend</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Check if the passwords match
+        if (password !== confirmPassword) {
+          alert(
+            "Passwords do not match. Please make sure both passwords are the same."
+          );
+          return false; // Prevent form submission
+        }
+        if (password.length < 8) {
+          alert("Password must be at least 8 characters long.");
+          return false; // Prevent form submission
+        }
+        // If passwords match, allow form submission
+        return true;
+      }
+
+      function toverify() {
+        alert("Please Log in into a Verified account first!");
+      }
+
+      function openPopup(popupId) {
+        // Close any open popups and overlay with fade-out effect
+        var openElements = document.querySelectorAll(".popup, .popup-overlay");
+        openElements.forEach(function (element) {
+          element.style.opacity = 0;
+          setTimeout(function () {
+            element.style.display = "none";
+          }, 150);
+        });
+
+        // Open the selected popup and overlay with fade-in effect
+        var overlay = document.querySelector(".popup-overlay");
+        var popup = document.getElementById(popupId);
+        setTimeout(function () {
+          overlay.style.display = "block";
+          popup.style.display = "block";
+          setTimeout(function () {
+            overlay.style.opacity = 1;
+            popup.style.opacity = 1;
+          }, 10);
+        }, 150);
+      }
+
+      function closePopup(popupId) {
+        // Close the popup and overlay with fade-out effect
+        var elementsToClose = document.querySelectorAll(
+          ".popup, .popup-overlay"
+        );
+        elementsToClose.forEach(function (element) {
+          element.style.opacity = 0;
+          setTimeout(function () {
+            element.style.display = "none";
+          }, 300);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .querySelectorAll(".loginb")
+          .forEach((btn) =>
+            btn.addEventListener("click", () => openPopup("LoginPopup"))
+          );
+        document
+          .querySelectorAll(".signupb")
+          .forEach((btn) =>
+            btn.addEventListener("click", () => openPopup("SignupPopup"))
+          );
+        document
+          .querySelectorAll(".sloginb")
+          .forEach((btn) =>
+            btn.addEventListener("click", () => openPopup("LoginPopup"))
+          );
+        document
+          .querySelectorAll(".ssignupb")
+          .forEach((btn) =>
+            btn.addEventListener("click", () => openPopup("SignupPopup"))
+          );
+        document
+          .querySelectorAll(".verifyb")
+          .forEach((btn) =>
+            btn.addEventListener("click", () => openPopup("VerificationPopup"))
+          );
+      });
+
+      function closeLoginPopup() {
+        document.getElementById("LoginPopup").style.display = "none";
+        var overlay = document.querySelector(".popup-overlay");
+        overlay.style.opacity = 0;
+        setTimeout(function () {
+          overlay.style.display = "none";
+        }, 300);
+      }
+
+      function closeSignupPopup() {
+        document.getElementById("SignupPopup").style.display = "none";
+        var overlay = document.querySelector(".popup-overlay");
+        overlay.style.opacity = 0;
+        setTimeout(function () {
+          overlay.style.display = "none";
+        }, 300);
+      }
+
+      function closeSettingsPopup() {
+        document.getElementById("SettingsPopup").style.display = "none";
+        var overlay = document.querySelector(".popup-overlay");
+        overlay.style.opacity = 0;
+        setTimeout(function () {
+          overlay.style.display = "none";
+        }, 300);
+      }
+
+      function showSettingsPopup() {
+        document.getElementById("SettingsPopup").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("spopup-overlay").style.display = "block";
+        }, 10);
+      }
+
+      function closeSettingsPopup() {
+        document.getElementById("spopup-overlay").style.display = "none";
+        document.getElementById("SettingsPopup").style.display = "none";
+      }
+      document.addEventListener("keyup", function (event) {
+        if (event.key === "Escape") {
+          closeLoginPopup();
+          closeSignupPopup();
+          closeSettingsPopup();
+        }
+      });
+    </script>
+    <script>
+      var sortValue;
+      var filterValue;
+      var searchValue;
+
+      document
+        .getElementById("searchbar")
+        .addEventListener("keyup", function () {
+          searchValue = document.getElementById("searchbar").value;
+          loadXMLDoc("search");
+
+          if (searchValue.trim() === "") {
+            document.querySelector(".output").style.display = "none";
+          } else {
+            document.querySelector(".output").style.display = "flex";
+          }
+        });
+
+      function loadXMLDoc(use) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            if (use == "search") {
+              console.log("open Search function");
+              getSearch(this);
+            }
+          }
+        };
+        xmlhttp.open("GET", "product.php?search=" + searchValue, true);
+        xmlhttp.send();
+      }
+
+      function getSearch(xml) {
+        var searchResults = xml.responseText;
+        document.getElementById("demo").innerHTML = searchResults;
+      }
+    </script>
+    <section>
+      <div class="" id="w1">
+        <div class="slideshow-container">
+          <button class="prev-button">&#10094;</button>
+          <div class="slides-container">
+            <div class="slide">
+              <img class="slideimg" src="upload/slideshow/1.png" />
+            </div>
+            <div class="slide">
+              <img class="slideimg" src="upload/slideshow/2.png" />
+            </div>
+            <div class="slide">
+              <img class="slideimg" src="upload/slideshow/3.png" />
+            </div>
+            <div class="slide">
+              <img class="slideimg" src="upload/slideshow/4.png" />
+            </div>
+          </div>
+          <button class="next-button">&#10095;</button>
+          <div class="dot-container"></div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="" id="w2">
+        <div id="shop">
+          <div class="categories">
+            <h1 style="text-transform: uppercase">Explore all categories</h1>
+          </div>
+          <div class="shop">
+            <a href="#Insta-inspired">
+              <div class="category">
+                <img src="upload\\category\\Insta-inspired.png" />
+                <div>
+                  <p style="color: white; font-size: 11px">Insta-inspired</p>
+                </div>
+              </div> </a
+            ><a href="#Keychain">
+              <div class="category">
+                <img src="upload\\category\\keychain.png" />
+                <div>
+                  <p style="color: white; font-size: 11px">Keychain</p>
+                </div>
+              </div> </a
+            ><a href="#Photocards">
+              <div class="category">
+                <img src="upload\\category\\bini_fanmade_card.png" />
+                <div>
+                  <p style="color: white; font-size: 11px">Photocards</p>
+                </div>
+              </div> </a
+            ><a href="#Photostrips">
+              <div class="category">
+                <img src="upload\\category\\Photostrips.png" />
+                <div>
+                  <p style="color: white; font-size: 11px">Photostrips</p>
+                </div>
+              </div> </a
+            ><a href="#Sample">
+              <div class="category">
+                <img src="upload\\category\\Sample.png" />
+                <div>
+                  <p style="color: white; font-size: 11px">Sample</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="companyname">
+        <h1>Tiktok.com/@envisionprint1221</h1>
+      </div>
+      <div class="flinks">
+        <a href="">
+          <p>Home</p>
+        </a>
+        <a href="">
+          <p>About</p>
+        </a>
+        <a href="">
+          <p>Contacts</p>
+        </a>
+        <a href="logout.php">
+          <p>Logout</p>
+        </a>
+      </div>
+      <ul class="fsocials">
+        <li class="ftco-animate">
+          <a href="https://www.facebook.com" target="_blank"
+            ><img src="css/img/facebook.png" alt="fb" width="10px"
+          /></a>
+        </li>
+        <li class="ftco-animate">
+          <a href="https://www.instagram.com/" target="_blank"
+            ><img src="css/img/instagram.png" alt="insta" width="10px"
+          /></a>
+        </li>
+        <li class="ftco-animate">
+          <a href="https://www.tiktok.com/@envisionprint1221" target="_blank"
+            ><img src="css/img/tik-tok.png" alt="tiktok" width="10px"
+          /></a>
+        </li>
+      </ul>
+      <div>
+        <p>Copyright ©2024 All rights reserved | <b>EnVision Print</b></p>
+      </div>
+    </footer>
+
+    <script src="config/slideshow.js"></script>
+  </body>
+</html>

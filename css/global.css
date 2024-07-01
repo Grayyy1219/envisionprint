@@ -40,6 +40,18 @@ a {
   cursor: pointer;
 }
 /* header */
+.verifiydiv {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  background-color: var(--primary);
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  color: var(--btext);
+}
+
 nav {
   position: sticky;
   top: 0px;
@@ -49,7 +61,7 @@ nav {
 }
 
 .header {
-  width: 100vw;
+  width: 100%;
   height: 55px;
   box-shadow: rgba(0, 0, 0, 0.267) 0 1px 10px 1px;
   display: flex;
@@ -97,7 +109,7 @@ nav {
   padding: 0 15px;
 }
 
-/* nouser */
+/* no userr */
 .login {
   display: flex;
   gap: 10px;
@@ -112,7 +124,12 @@ div#popup-create {
   gap: 5px;
 }
 
-/* withuser */
+/* with userr */
+.sdiv {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 .profile {
   display: flex;
   align-items: center;
@@ -126,13 +143,19 @@ div#popup-create {
 
 .name {
   font-size: 15px;
-  color: #333;
   color: #c446ea;
+  text-transform: capitalize;
 }
 
 .email {
   font-size: 12px;
   color: gray;
+}
+.profileinfo {
+  max-width: 137px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 .carts {
   display: flex;
@@ -272,7 +295,11 @@ div#popup-create {
   margin: 14px 0 0;
   width: 100%;
 }
-
+.form-container p {
+  width: 250px;
+  font-size: 12px;
+  margin: 10px;
+}
 .input2 {
   background: none;
   border: 0;
@@ -390,7 +417,54 @@ div#popup-create {
   box-shadow: inset 0 0 0 2px #0000004f;
   width: 90px;
 }
+.basicinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px;
+  border: solid 1px var(--primary);
+  border-radius: 10px;
+}
+.basicinfor1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.basicinfor2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+.ssbuttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 14px;
+  border: solid 1px var(--primary);
+  border-radius: 10px;
+}
+
+.settingbtn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+}
+.inbtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--primary);
+  padding: 7px 13px;
+  border-radius: 5px;
+  font-size: 14px;
+  justify-content: center;
+}
 /* footerrr */
 
 footer {

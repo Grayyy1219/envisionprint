@@ -41,6 +41,6 @@ if (isset($_POST['submit'])) {
     } else {
         echo '<script>alert("User not found or invalid credentials");</script>';
     }
-    echo '<script>window.location.href = "Landingpage.php";</script>';
+    echo '<script>window.history.back();</script>';
     exit();
 }

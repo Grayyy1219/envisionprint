@@ -1,37 +1,116 @@
-<div id="shop">
-    <div class="categories">
-        <h1 style="text-transform: uppercase;">Explore all categories</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Project</title>
+    <?php
+    include("connect.php");
+    include("query.php");
+    ?>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/landingpage.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+
+<body>
+
+    <?php
+    include("header.php");
+    include("popups.php");
+    if (!isset($_GET['page'])) {
+        $_GET['page'] = 1;
+    }
+
+    if (!isset($_GET['category'])) {
+        exit("Category not set");
+    }
+
+    $category = $_GET['category'];
+    $queryUser = mysqli_query($con, "SELECT * FROM category WHERE Category = '$category'");
+    $rowUser2 = mysqli_fetch_assoc($queryUser);
+    $imagesPerPage = 8;
+    $currentPage = $_GET['page'];
+    $totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM items WHERE category = '$category' "));
+    $totalPages = ceil($totalRecords / $imagesPerPage);
+    ?>
+    <div class="pagehead">
+        <div class="categotytitle"><?= $category ?></div>
+        <div class="filter">
+            <select name="" id="">
+                <option value="">None</option>
+                <option value="">Price Low to High</option>
+                <option value="">Price High to Low</option>
+            </select>
+        </div>
     </div>
-    <div class="shop">
-        <?php
-        $query = "SELECT * FROM category";
-        $result = mysqli_query($con, $query);
 
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $categoryName = mysqli_real_escape_string($con, $row['Category']);
-                $categoryimg = mysqli_real_escape_string($con, $row['img']);
-                $countQuery = "SELECT COUNT(*) FROM items WHERE category = '$categoryName'";
-                $countResult = mysqli_query($con, $countQuery);
+    <form action="" id="myForm" method="post" enctype="multipart/form-data">
+        <div id='shop'>
+            <div class="search_count"><?= $totalRecords ?> item/s found for "<?= $category ?>"</div>
+            <div class='shop'>
 
-                if ($countResult) {
-                    $totalRecords = mysqli_fetch_row($countResult)[0];
+                <?php
+                $startIndex = ($currentPage - 1) * $imagesPerPage;
+                $stmt = $con->prepare("SELECT * FROM items WHERE category = ? LIMIT ?, ?");
+                $stmt->bind_param("sii", $category, $startIndex, $imagesPerPage);
+                $stmt->execute();
 
-                    echo "<a href='#$categoryName'>
-                    <div class='category'>
-                <img src='$categoryimg'>
-                <div>
-                    <p style='color: white;font-size: 11px;'>$categoryName</p>
-                </div>
-            </div>
-                </a>";
-                } else {
-                    echo "Error fetching book count for $categoryName: " . mysqli_error($con);
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    $ItemID = $row["ItemID"];
+                    $ItemName = $row["ItemName"];
+                    $category = $row["Category"];
+                    $ItemImage = $row["ItemImg"];
+                    $Price = $row["Price"];
+                    $Solds = $row["Solds"];
+                    $Quantity = $row["Quantity"];
+                    $Description = $row["Description"];
+                    $shortenedTitle = (strlen($ItemName) > 55) ? substr($ItemName, 0, 55) . '...' : $ItemName;
+                ?>
+                    <div class='itemcard'>
+                        <img src='<?= $ItemImage ?>'>
+                        <div class="iteminfo">
+                            <div>
+                                <p><?= $shortenedTitle ?></p>
+                                <p class="stocks">Stocks <?= $Quantity ?></p>
+                            </div>
+                            <div class="tocart">
+                                <h4>₱<?= $Price ?></h4>
+                                <div class='buy' onclick="submitForm('itempage.php?Itemname=<?= $ItemName ?>&Category=<?= $category ?>&ItemImage=<?= $ItemImage ?>&Price=<?= $Price ?>&Solds=<?= $Solds ?>&Quantity=<?= $Quantity ?>&ItemID=<?= $ItemID ?>&Description=<?= $Description ?>')">
+                                    <input type='submit' style='all:unset' class='div-29' value='Add to cart'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
                 }
-            }
 
-            echo "";
-        } else {
-            echo "Error fetching categories from the database: " . mysqli_error($con);
-        } ?>
+
+
+                echo "</div>";
+
+                echo "</br></br>
+            <div id='pagination-container_category' class='pageno'><b>Page: </b>";
+
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    $activeClass = ($i == $currentPage) ? 'selected-page' : '';
+                    echo "<a class='pagination-link $activeClass' href='?category=$category&page=$i'>$i</a>";
+                }
+                echo "</div>"; ?>
+                <script>
+                    function submitForm(action) {
+                        document.getElementById("myForm").action = action;
+                        document.getElementById("myForm").submit();
+                    }
+                </script>
+    </form>
     </div>
+    <section>
+        <?php include("categories.php"); ?>
+    </section>
+    <?php include("footer.php"); ?>
+</body>
+
+</html>

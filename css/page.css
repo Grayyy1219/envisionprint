@@ -1,0 +1,98 @@
+.pagehead {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 70px;
+  align-items: center;
+  background: var(--primary);
+  color: white;
+}
+.categotytitle {
+  font-size: 26px;
+  font-weight: 700;
+  filter: drop-shadow(0px 0px 9px black);
+}
+.shop {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 30px;
+  border: solid 1px #999;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+div#shop {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 20px;
+  justify-content: space-between;
+}
+.iteminfo {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  gap: 4px;
+  justify-content: space-between;
+  width: 100%;
+}
+.itemcard {
+  display: flex;
+  gap: 5px;
+  background-color: white;
+  padding: 10px;
+  width: 304.2px;
+}
+.itemcard img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+}
+.stocks {
+  font-size: 12px;
+  color: gray;
+}
+.iteminfo h4 {
+  color: var(--primary);
+}
+.filter select {
+  height: 30px;
+  padding: 0 10px;
+}
+div#pagination-container_category {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin: auto;
+}
+
+a.pagination-link {
+  padding: 4px 9px;
+
+  border: solid 1px var(--secondary);
+  border-radius: 5px;
+}
+.selected-page {
+  color: white;
+  background: var(--primary);
+  font-weight: bold;
+}
+.search_count {
+  margin: 0 0 25px 10px;
+}
+.buy {
+  background: var(--primary);
+  padding: 5px;
+  width: 80px;
+  color: white;
+  border-radius: 3px;
+  /* margin-left: auto; */
+}
+.iteminfo p {
+  font-size: 12px;
+}
+.tocart {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

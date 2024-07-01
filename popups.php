@@ -4,22 +4,32 @@
     <div class="popup-content">
         <span class="close" onclick="closeSettingsPopup()"><b>&times;</b></span>
         <div class="sdiv">
-            <!-- <form action="" class="settings" method="post" enctype="multipart/form-data"> -->
-            <?php
-            echo "<div class='profileimg'><p><img  src='$location' width='200' height='200' style='object-fit: cover;'></p><br><br>";
-            echo "<p class='name'><b>" . $FName . "</b></p>";
-            echo "<p class='emaillink'>" . $email . "</p></div>";
-            ?>
+            <div class='basicinfo'>
+                <div class="basicinfor1">
+                    <img src='<?= $location ?>' width='120' height='120' style='object-fit: cover;border-radius: 10px;'>
+                    <div class="profileinfo">
+                        <p class='name'><b><?= $FName ?></b></p>
+                        <p class='email'><?= $email ?></p>
+                        <p class='email'><b><?= $address ?></b></p>
+                        <p class='email'>#<?= $phone ?></p>
+                        <?php if ($verification == 1) { ?>
+                            <p class='email'>*Verified User</p>
+                        <?php } else { ?>
+                            <p class='email'>*Not Verified User</p>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
             <div class="ssbuttons">
                 <div class="settingbtn">
                     <a href="edituser.php">
                         <div class="inbtn">
-                            <p style="color: white;">Edit Basic Information</p>
+                            <p style="color: white;">Account Settings</p>
                         </div>
                     </a>
                     <a href="editpass.php">
                         <div class="inbtn">
-                            <p style="color: white;">Change Password</p>
+                            <p style="color: white;">Security</p>
                         </div>
                     </a>
                     <a href="history.php">
@@ -27,22 +37,6 @@
                             <p style="color: white;">Purchase History</p>
                         </div>
                     </a>
-                    <?php
-                    if ($verification != 1) {
-                        echo "
-    <div class='verifiydiv'>
-        <form action='process.php' method='GET'>
-            <input type='text' name='code' placeholder='Enter Code' required>
-        </form>
-        <a href='mail.php' class='mail-link'>
-            <div class='inbtn'>
-                <p style='color: white;'>Resend</p>
-            </div>
-        </a>
-    </div>";
-                    }
-                    ?>
-
                 </div>
 
                 <a href="logout.php">
@@ -51,7 +45,6 @@
                     </div>
                 </a>
             </div>
-            <!-- </form> -->
         </div>
     </div>
 </div>
@@ -104,7 +97,26 @@
         </div>
     </div>
 </div>
-
+<div id="VerificationPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeVerificationPopup()"><b>&times;</b></span>
+        <div class="form-box">
+            <form action="createuser.php" class="form" method="post" enctype="multipart/form-data">
+                <div class="form-container">
+                    <h2>Email Verification Required</h2>
+                    <p>Your account is not verified yet. Please check your email for the verification link.</p>
+                    <p>If you did not receive the email, click the button below to resend the verification email.</p>
+                    <input type="hidden" name="email" value="<?= $email ?>">
+                    <input type="text" name="code" class="input2" id="verificationCodeInput" placeholder="Enter code">
+                </div>
+                <button id="submitVerificationCode" class="submit" formaction="process.php">Submit</button>
+                <div class="form-section">
+                    <p>Did not receive the email? <a href="mail.php">Resend</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script>
     function validateForm() {
         var password = document.getElementById("password").value;
@@ -162,19 +174,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var loginBtn = document.querySelector('.loginb');
-        var signupBtn = document.querySelector('.signupb');
-        var sloginBtn = document.querySelector('.sloginb');
-        var ssignupBtn = document.querySelector('.ssignupb');
-        loginBtn.addEventListener('click', function() {
-            openPopup('LoginPopup');
-
-        });
-
-        signupBtn.addEventListener('click', function() {
-            openPopup('SignupPopup');
-        });
+        document.querySelectorAll('.loginb').forEach(btn => btn.addEventListener('click', () => openPopup('LoginPopup')));
+        document.querySelectorAll('.signupb').forEach(btn => btn.addEventListener('click', () => openPopup('SignupPopup')));
+        document.querySelectorAll('.sloginb').forEach(btn => btn.addEventListener('click', () => openPopup('LoginPopup')));
+        document.querySelectorAll('.ssignupb').forEach(btn => btn.addEventListener('click', () => openPopup('SignupPopup')));
+        document.querySelectorAll('.verifyb').forEach(btn => btn.addEventListener('click', () => openPopup('VerificationPopup')));
     });
+
 
     function closeLoginPopup() {
         document.getElementById('LoginPopup').style.display = 'none';
@@ -196,6 +202,15 @@
 
     function closeSettingsPopup() {
         document.getElementById('SettingsPopup').style.display = 'none';
+        var overlay = document.querySelector('.popup-overlay');
+        overlay.style.opacity = 0;
+        setTimeout(function() {
+            overlay.style.display = 'none';
+        }, 300);
+    }
+
+    function closeVerificationPopup() {
+        document.getElementById('VerificationPopup').style.display = 'none';
         var overlay = document.querySelector('.popup-overlay');
         overlay.style.opacity = 0;
         setTimeout(function() {

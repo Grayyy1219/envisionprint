@@ -36,15 +36,12 @@
             echo "<div class='profile'>
                             <img src='$location' width='35' height='35' id='currentuser'>
                     <div id='inout'>
-                        <p class='name'><b>$FName</b></p>
-                        <p class='email'>$email</p>
+                        
                     </div>
                         <div class='carts'>
                         <a href='cart.php'><img src='css/img/shopping-cart.png' width='22' id='currentuser'><div class='cartcount'>$cartcount</div></a>
                         <a onclick='showSettingsPopup()'><img src='css/img/setting.png' width='22' id='profile'>";
-            if ($verification != 1) {
-                echo "<div class='verify'>Verify</div></a>";
-            }
+
             echo "</a></div></div>";
         }
         ?>
@@ -54,6 +51,11 @@
         </div>
     </div>
 </nav>
+<?php if ($verification != 1 && $username != 0) { ?>
+    <div class="verifiydiv"><a name="home"></a>
+        <p style="color: white;">Please Verify your Account first, Click <span><b class='verifyb pointer' style="color: white;text-decoration: underline;">Here</b></a></span></p>
+    </div>
+<?php } ?>
 <?php include("popups.php"); ?>
 <script>
     var sortValue;
