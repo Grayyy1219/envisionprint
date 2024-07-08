@@ -67,7 +67,7 @@ if (!$result) {
             <?php
             }
             ?>
-            <div class="promoCode">
+            <div class="promoCode" style="opacity: 0;">
                 <input type="text" id="promoCode" placeholder="Enter promo code">
                 <button onclick="applyPromoCode()" class="promobtn">Apply</button>
             </div>
