@@ -57,4 +57,9 @@ echo "
 p,h1{
 color:  var(--text);
 }
-</style>";
+</style>
+<script>
+    function backref() {
+        window.location.href = document.referrer;
+    }
+</script>";

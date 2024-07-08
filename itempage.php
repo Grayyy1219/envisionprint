@@ -19,7 +19,6 @@
     $Quantity = $row["Quantity"];
     $Description = $row["Description"];
     $shortenedTitle = (strlen($ItemName) > 100) ? substr($ItemName, 0, 100) . '...' : $ItemName;
-
     ?>
     <title><?= $ItemName ?></title>
     <?php
@@ -63,7 +62,7 @@
                         <div class="count">
                             <div class="email">Price: <p>₱<?= $Price ?></p>
                             </div>
-                            <div class="email">Quantity: <br> <input type='number' value='<?= $initialQuantityValue ?>' name='quantity' id='quantityInput' min='1' max='<?= $Quantity ?>' onchange='updateInputQuantity(this.value)'></div>
+                            <div class="email">Quantity: <br> <input type='number' value='<?= $initialQuantityValue ?>' name='quantity' id='quantityInput' min='1' max='<?= $Quantity ?>'></div>
                         </div>
 
                         <div class='cartbtn'>

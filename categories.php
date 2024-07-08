@@ -26,7 +26,7 @@
             </div>
                 </a>";
                 } else {
-                    echo "Error fetching book count for $categoryName: " . mysqli_error($con);
+                    echo "Error fetching item count for $categoryName: " . mysqli_error($con);
                 }
             }
 

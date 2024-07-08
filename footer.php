@@ -3,7 +3,7 @@
         <h1>Tiktok.com/@envisionprint1221</h1>
     </div>
     <div class="flinks">
-        <a href="">
+        <a href="index.php">
             <p>Home</p>
         </a>
         <a href="">
