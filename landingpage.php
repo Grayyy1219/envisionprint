@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnVision Print</title>
+    <title>EnVision Print.</title>
     <?php
     include("connect.php");
     include("query.php"); ?>
