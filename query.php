@@ -20,9 +20,6 @@ if ($username != 0) {
     $query69 = mysqli_query($con, "SELECT COUNT(cart_id) AS count from cart WHERE customer_id = $UserID");
     $row69 = mysqli_fetch_assoc($query69);
     $cartcount = $row69["count"];
-    $query70 = mysqli_query($con, "SELECT COUNT(id) AS count from purchase_history WHERE customer_name = '$FName' and returned !=1");
-    $row70 = mysqli_fetch_assoc($query70);
-    $borrowcount = $row70["count"];
 } else {
     $verification = '0';
     $block = '0';

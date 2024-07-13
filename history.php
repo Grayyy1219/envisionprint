@@ -1,12 +1,6 @@
 <?php
 include("connect.php");
 include("query.php");
-
-$selectQuery = "SELECT items.*, orders.order_date, orders.order_quantity, orders.status
-                FROM items
-                JOIN orders ON items.ItemID  = orders.product_id
-                WHERE orders.customer_id = '$UserID'  ORDER BY `orders`.`order_date` DESC";
-$result = mysqli_query($con, $selectQuery);
 ?>
 
 <html>
@@ -14,7 +8,7 @@ $result = mysqli_query($con, $selectQuery);
 <head>
     <title>Purchase history</title>
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/history.css">
     <style>
 
     </style>
@@ -24,18 +18,12 @@ $result = mysqli_query($con, $selectQuery);
     <?php include("header.php");
     include("popups.php");
 
-    $selected_category = isset($_GET['genre']) ? $_GET['genre'] : '';
-
-    $items_per_page = 5;
+    $items_per_page = 10;
 
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
     $offset = ($current_page - 1) * $items_per_page;
-
     $where_clause = '';
-    if ($selected_category) {
-        $where_clause = "WHERE genre = '" . mysqli_real_escape_string($con, $selected_category) . "'";
-    }
 
     $total_items_query = "
     SELECT COUNT(*) AS count 
@@ -49,7 +37,7 @@ $result = mysqli_query($con, $selectQuery);
     $total_pages = ceil($total_items / $items_per_page);
 
     $get_pro = "
-    SELECT items.*, orders.order_date, orders.order_quantity, orders.status
+    SELECT items.*, orders.order_id, orders.order_date, orders.order_quantity, orders.status
     FROM items
     JOIN orders ON FIND_IN_SET(items.ItemID, orders.product_id)
     WHERE orders.customer_id = '$UserID'
@@ -66,33 +54,63 @@ $result = mysqli_query($con, $selectQuery);
                     <p class="cart-tip">Adjust the quantity to update your cart total automatically.</p>
                     <table class="itemtable">
                         <tr>
-                            <th>#</th>
+                            <th>Ref #</th>
                             <th style="text-align: start;">Product</th>
-                            <th>Price</th>
+                            <th>Details</th>
                             <th style="width: 100px;">Order Date</th>
-                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         <tbody>
                             <?php
                             $i = $offset;
+                            $last_id = null;
+                            $last_date = null;
                             while ($row_pro = mysqli_fetch_array($run_pro)) {
-                                $pro_id = $row_pro['ItemID'];
+                                $current_id = $row_pro['order_id'];
+
                                 $pro_title = $row_pro['ItemName'];
                                 $pro_image = $row_pro['ItemImg'];
-                                $pro_price = $row_pro['Price'];
-                                $order_date = date('F j, Y', strtotime($row_pro['order_date']));
-                                $i++;
+                                $current_date = $row_pro['order_date'];
+                                $status = $row_pro['status'];
+                                $getorderinfosql = "SELECT amount_paid, payment_mode FROM `payment` where order_id = $current_id";
+                                $getorderinforow = mysqli_query($con, $getorderinfosql);
+                                $orderinforow = mysqli_fetch_assoc($getorderinforow);
+
+                                if ($current_date != $last_date) {
+                                    $order_date = date('F j, Y', strtotime($current_date));
+                                    $last_date = $current_date;
+                                    $order_id = $current_id;
+                                    $price = "₱ " . $orderinforow['amount_paid'];
+                                    $payment_mode = $orderinforow['payment_mode'];
+                                    $style = "class='tdb'";
+                                    if ($status == "0") {
+                                        $returnbtn = "<button class='buybtn' onlick='recivedorder($order_id)'>Recived</button>";
+                                    } else if ($status == "1") {
+                                        $returnbtn = "<div><p>Order recived.</p><button class='buybtn' onlick='recivedorder($order_id)'>Return</button></div>";
+                                    } else if ($status == "2") {
+                                        $returnbtn = "<p>Return Aprroved</p>";
+                                    }
+                                } else {
+                                    $order_date = " ";
+                                    $order_id = " ";
+                                    $price = " ";
+                                    $payment_mode = " ";
+                                    $style = " ";
+                                    $returnbtn = " ";
+                                }
                             ?>
-                                <tr class="cart-item" style="height: 75px;">
-                                    <td><?php echo $i; ?></td>
-                                    <td style="width: 50%;">
+
+                                <tr class="cart-item" style="height: 55px">
+                                    <td <?= $style ?> style="font-size: 12px;"><?php echo $order_id; ?></td>
+                                    <td <?= $style ?> style="width: 50%;">
                                         <div class="product">
-                                            <img src="<?php echo $pro_image; ?>" width="60" height="60" alt="Product Image">
+                                            <img src="<?php echo $pro_image; ?>" width="30" height="30" alt="Product Image">
                                             <div style="text-align: start;font-size: 12px;"> <?= $pro_title; ?></div>
                                         </div>
                                     </td>
-                                    <td>₱ <?php echo $pro_price; ?></td>
-                                    <td><?php echo $order_date; ?></td>
+                                    <td <?= $style ?> style="font-size: 12px;"><?= $price . "<br>" . $payment_mode ?></td>
+                                    <td <?= $style ?>> <?= $order_date ?></td>
+                                    <td <?= $style ?>><?= $returnbtn ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -100,17 +118,17 @@ $result = mysqli_query($con, $selectQuery);
                 </div>
                 <div id="pagination-container_category" class="pageno">
                     <?php if ($current_page > 1) : ?>
-                        <div><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></div>
+                        <div><a href="http://localhost/envisionprint/history.php?page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></div>
                     <?php endif; ?>
 
                     <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
                         <div <?php if ($page == $current_page) echo 'class="active"'; ?>>
-                            <a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                            <a href="http://localhost/envisionprint/history.php?page=<?php echo $page; ?>"><?php echo $page; ?></a>
                         </div>
                     <?php endfor; ?>
 
                     <?php if ($current_page < $total_pages) : ?>
-                        <div><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page + 1; ?>">Next &raquo;</a></div>
+                        <div><a href="http://localhost/envisionprint/history.php?page=<?php echo $current_page + 1; ?>">Next &raquo;</a></div>
                     <?php endif; ?>
                 </div>
             </div>

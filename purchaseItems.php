@@ -89,7 +89,6 @@ if (!$result) {
         function applyPromoCode() {
             var promoCode = document.getElementById("promoCode").value;
 
-            // Make an AJAX request to validate the promo code
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "validate_promo_code.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -99,14 +98,11 @@ if (!$result) {
                     if (response.valid) {
                         alert("Promo code applied! You've received a discount of " + response.discount + "%");
 
-                        // Calculate the discounted price
                         var discountPercentage = response.discount / 100;
                         var discountedTotal = <?= $totalPurchaseValue; ?> * (1 - discountPercentage);
 
-                        // Store the discounted price in the session
                         sessionStorage.setItem('discountedPrice', discountedTotal);
 
-                        // Send the discounted price to the server
                         var formData = new FormData();
                         formData.append('promoCode', promoCode);
                         formData.append('discountedPrice', discountedTotal);
@@ -115,7 +111,6 @@ if (!$result) {
                         xhrDiscountedPrice.open("POST", "process_discounted_price.php", true);
                         xhrDiscountedPrice.send(formData);
 
-                        // Update the total purchase value displayed
                         document.querySelector(".total p:last-child").innerHTML = "<b>₱" + discountedTotal.toFixed(2) + "</b>";
                     } else {
                         alert("Invalid promo code. Please try again.");
