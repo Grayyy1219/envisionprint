@@ -47,7 +47,7 @@
                 <div class="iteminfo">
                     <p class="category"><?= $category ?></p>
                     <div class="info">
-                        <input type='hidden' name='Title' value='<?= $shortenedTitle ?>'>
+                        <input type='hidden' name='Title' value='<?= $ItemName ?>'>
                         <div>
                             <p class="Title"><b><?= $shortenedTitle ?></b></p>
                             <p>Qty. (<?= $Quantity ?>)</p>

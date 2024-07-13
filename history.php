@@ -14,77 +14,15 @@ $result = mysqli_query($con, $selectQuery);
 <head>
     <title>Purchase history</title>
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/table.css">
-    <link rel="icon" href="Image/logo.ico">
+    <link rel="stylesheet" href="css/cart.css">
     <style>
-        .penalty-form {
-            margin-top: 10px;
-        }
 
-        .penalty-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .penalty-form input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        .penalty-form p {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #888;
-        }
-
-        .penalty-form button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .penalty-form button:hover {
-            background-color: #45a049;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .pagination li {
-            display: inline;
-            margin: 0 5px;
-        }
-
-        .pagination li a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        .pagination li.active a {
-            font-weight: bold;
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body>
     <?php include("header.php");
-    include("popups.php"); 
+    include("popups.php");
 
     $selected_category = isset($_GET['genre']) ? $_GET['genre'] : '';
 
@@ -120,24 +58,20 @@ $result = mysqli_query($con, $selectQuery);
 
     $run_pro = mysqli_query($con, $get_pro);
     ?>
-
-<div class="row" style="width: 66%; margin: 50px auto;">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color: #f5f5f5; border-color: #ddd;">
-                <h3 class="panel-title" style="color: #333; font-weight: bold;">Purchase History</h3>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th colspan="2">Product</th>
-                                <th>Price</th>
-                                <th>Order Date</th>
-                            </tr>
-                        </thead>
+    <form method="post" action="" id="cartForm" enctype="multipart/form-data">
+        <section class="center">
+            <div class="Itemcart">
+                <h1>Purchase history</h1>
+                <div class="cart-container">
+                    <p class="cart-tip">Adjust the quantity to update your cart total automatically.</p>
+                    <table class="itemtable">
+                        <tr>
+                            <th>#</th>
+                            <th style="text-align: start;">Product</th>
+                            <th>Price</th>
+                            <th style="width: 100px;">Order Date</th>
+                            <th>Status</th>
+                        </tr>
                         <tbody>
                             <?php
                             $i = $offset;
@@ -149,10 +83,14 @@ $result = mysqli_query($con, $selectQuery);
                                 $order_date = date('F j, Y', strtotime($row_pro['order_date']));
                                 $i++;
                             ?>
-                                <tr>
+                                <tr class="cart-item" style="height: 75px;">
                                     <td><?php echo $i; ?></td>
-                                    <td><?php echo $pro_title; ?></td>
-                                    <td><img src="<?php echo $pro_image; ?>" width="60" height="60" alt="Product Image"></td>
+                                    <td style="width: 50%;">
+                                        <div class="product">
+                                            <img src="<?php echo $pro_image; ?>" width="60" height="60" alt="Product Image">
+                                            <div style="text-align: start;font-size: 12px;"> <?= $pro_title; ?></div>
+                                        </div>
+                                    </td>
                                     <td>₱ <?php echo $pro_price; ?></td>
                                     <td><?php echo $order_date; ?></td>
                                 </tr>
@@ -160,28 +98,24 @@ $result = mysqli_query($con, $selectQuery);
                         </tbody>
                     </table>
                 </div>
-                <div class="text-center">
-                    <ul class="pagination">
-                        <?php if ($current_page > 1) : ?>
-                            <li><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></li>
-                        <?php endif; ?>
+                <div id="pagination-container_category" class="pageno">
+                    <?php if ($current_page > 1) : ?>
+                        <div><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></div>
+                    <?php endif; ?>
 
-                        <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
-                            <li <?php if ($page == $current_page) echo 'class="active"'; ?>>
-                                <a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $page; ?>"><?php echo $page; ?></a>
-                            </li>
-                        <?php endfor; ?>
+                    <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
+                        <div <?php if ($page == $current_page) echo 'class="active"'; ?>>
+                            <a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                        </div>
+                    <?php endfor; ?>
 
-                        <?php if ($current_page < $total_pages) : ?>
-                            <li><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page + 1; ?>">Next &raquo;</a></li>
-                        <?php endif; ?>
-                    </ul>
+                    <?php if ($current_page < $total_pages) : ?>
+                        <div><a href="http://localhost/envisionprint/history.php?genre=<?php echo $selected_category; ?>&page=<?php echo $current_page + 1; ?>">Next &raquo;</a></div>
+                    <?php endif; ?>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
+        </section>
+    </form>
 </body>
 
 </html>

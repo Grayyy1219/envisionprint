@@ -130,3 +130,20 @@ input[type="number"] {
   color: #666;
   margin-top: 5px;
 }
+div#pagination-container_category {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin: auto;
+}
+#pagination-container_category div{
+  padding: 4px 9px;
+  border: solid 1px var(--secondary);
+  border-radius: 5px;
+}
+.active, .active a{
+  color: white;
+  background: var(--primary);
+  font-weight: bold;
+  height: 100%;
+}
