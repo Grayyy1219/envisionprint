@@ -125,7 +125,7 @@ include("query.php");
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-2' value='2'><label for='rating-$order_id-2'></label>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-1' value='1'><label for='rating-$order_id-1'></label>
                                         </div>
-                                        <input type='submit' formaction='save_rating.php' value='Save Rating'></div>";
+                                        <input type='submit' class='ratebtn' formaction='save_rating.php' value='Save Rating'></div>";
                                     }
                                     $style = "class='tdb'";
                                     if ($status == "0") {
