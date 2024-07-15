@@ -122,16 +122,14 @@
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Check if the passwords match
         if (password !== confirmPassword) {
             alert("Passwords do not match. Please make sure both passwords are the same.");
-            return false; // Prevent form submission
+            return false; 
         }
         if (password.length < 8) {
             alert("Password must be at least 8 characters long.");
-            return false; // Prevent form submission
+            return false; 
         }
-        // If passwords match, allow form submission
         return true;
     }
 
@@ -140,7 +138,6 @@
     }
 
     function openPopup(popupId) {
-        // Close any open popups and overlay with fade-out effect
         var openElements = document.querySelectorAll('.popup, .popup-overlay');
         openElements.forEach(function(element) {
             element.style.opacity = 0;
@@ -149,7 +146,6 @@
             }, 150);
         });
 
-        // Open the selected popup and overlay with fade-in effect
         var overlay = document.querySelector('.popup-overlay');
         var popup = document.getElementById(popupId);
         setTimeout(function() {
@@ -163,7 +159,6 @@
     }
 
     function closePopup(popupId) {
-        // Close the popup and overlay with fade-out effect
         var elementsToClose = document.querySelectorAll('.popup, .popup-overlay');
         elementsToClose.forEach(function(element) {
             element.style.opacity = 0;

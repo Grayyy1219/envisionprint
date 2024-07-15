@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $order_id = (int)$_POST['order_id'];
 
     if ($action == 'received') {
-        $status = 1; // Received
+        $status = 1;  
     } elseif ($action == 'return') {
-        $status = 2; // Pending Return
+        $status = 2; 
     } else {
         echo "Invalid action.";
         exit();
