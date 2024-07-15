@@ -10,18 +10,38 @@ include("query.php");
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/history.css">
     <style>
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
 
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            background: url('star-empty.png') no-repeat;
+            background-size: contain;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            background: url('star-filled.png') no-repeat;
+            background-size: contain;
+        }
     </style>
 </head>
 
 <body>
     <?php include("header.php");
 
-
     $items_per_page = 10;
-
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
     $offset = ($current_page - 1) * $items_per_page;
     $where_clause = '';
 
@@ -37,7 +57,7 @@ include("query.php");
     $total_pages = ceil($total_items / $items_per_page);
 
     $get_pro = "
-    SELECT items.*, orders.order_id, orders.order_date, orders.order_quantity, orders.status
+    SELECT items.*, orders.order_id, orders.order_date, orders.order_quantity, orders.rating as order_rating, orders.status
     FROM items
     JOIN orders ON FIND_IN_SET(items.ItemID, orders.product_id)
     WHERE orders.customer_id = '$UserID'
@@ -45,19 +65,23 @@ include("query.php");
     LIMIT $offset, $items_per_page";
 
     $run_pro = mysqli_query($con, $get_pro);
+
+    $totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM orders WHERE customer_id = '$UserID' "));
+
     ?>
     <form method="post" action="" id="cartForm" enctype="multipart/form-data">
         <section class="center">
             <div class="Itemcart">
                 <h1>Purchase history</h1>
                 <div class="cart-container">
-                    <p class="cart-tip">Adjust the quantity to update your cart total automatically.</p>
+                    <p class="cart-tip"> <?= $totalRecords ?> total Purchase/s.</p>
                     <table class="itemtable">
                         <tr>
                             <th>Ref #</th>
                             <th style="text-align: start;">Product</th>
                             <th>Details</th>
                             <th style="width: 100px;">Order Date</th>
+                            <th>Rating</th>
                             <th>Action</th>
                         </tr>
                         <tbody>
@@ -67,10 +91,10 @@ include("query.php");
                             $last_date = null;
                             while ($row_pro = mysqli_fetch_array($run_pro)) {
                                 $current_id = $row_pro['order_id'];
-
                                 $pro_title = $row_pro['ItemName'];
                                 $pro_image = $row_pro['ItemImg'];
                                 $current_date = $row_pro['order_date'];
+                                $rating = $row_pro['order_rating'];
                                 $status = $row_pro['status'];
                                 $getorderinfosql = "SELECT amount_paid, payment_mode FROM `payment` where order_id = $current_id";
                                 $getorderinforow = mysqli_query($con, $getorderinfosql);
@@ -82,11 +106,31 @@ include("query.php");
                                     $order_id = $current_id;
                                     $price = "₱ " . $orderinforow['amount_paid'];
                                     $payment_mode = $orderinforow['payment_mode'];
+                                    if ($rating > 0) {
+                                        $rating_html = "<div class='star-rating'>";
+                                        for ($i = 5; $i >= 1; $i--) {
+                                            if ($rating <= $i) {
+                                                $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i' checked><label for='rating-$order_id-$i'></label>";
+                                            } else {
+                                                $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i'><label for='rating-$order_id-$i'></label> ";
+                                            }
+                                        }
+                                        $rating_html .= "</div>";
+                                    } else {
+                                        $rating_html = "<div class='star-rating'>
+                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-5' value='5'><label for='rating-$order_id-5'></label>
+                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-4' value='4'><label for='rating-$order_id-4'></label>
+                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-3' value='3'><label for='rating-$order_id-3'></label>
+                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-2' value='2'><label for='rating-$order_id-2'></label>
+                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-1' value='1'><label for='rating-$order_id-1'></label>
+                                        </div>
+                                        <input type='submit' formaction='save_rating.php' value='Save Rating'>";
+                                    }
                                     $style = "class='tdb'";
                                     if ($status == "0") {
                                         $returnbtn = "<button class='buybtn' onclick='recivedorder($order_id)'>Received</button>";
                                     } else if ($status == "1") {
-                                        $returnbtn = "<div><p>Order received.</p><button class='buybtn' onclick='returnorder($order_id)'>Return</button></div>";
+                                        $returnbtn = "<div><p>Order received.<br><img src='star.png' width='20px'><br></p><button class='buybtn' onclick='returnorder($order_id)'>Return</button></div>";
                                     } else if ($status == "2") {
                                         $returnbtn = "<p>Pending Return</p>";
                                     } else if ($status == "3") {
@@ -99,9 +143,9 @@ include("query.php");
                                     $payment_mode = " ";
                                     $style = " ";
                                     $returnbtn = " ";
+                                    $rating_html = " ";
                                 }
                             ?>
-
                                 <tr class="cart-item" style="height: 55px">
                                     <td <?= $style ?> style="font-size: 12px;"><?php echo $order_id; ?></td>
                                     <td <?= $style ?> style="width: 50%;">
@@ -112,6 +156,7 @@ include("query.php");
                                     </td>
                                     <td <?= $style ?> style="font-size: 12px;"><?= $price . "<br>" . $payment_mode ?></td>
                                     <td <?= $style ?>> <?= $order_date ?></td>
+                                    <td <?= $style ?>><?= $rating_html ?></td>
                                     <td <?= $style ?>><?= $returnbtn ?></td>
                                 </tr>
                             <?php } ?>
@@ -135,6 +180,7 @@ include("query.php");
                 </div>
             </div>
         </section>
+        <input type="submit" value="Save Ratings">
     </form>
     <script>
         function recivedorder(order_id) {
@@ -144,8 +190,8 @@ include("query.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
-                        console.log("XHR status: " + xhr.status); 
-                        console.log("XHR response: " + xhr.responseText); 
+                        console.log("XHR status: " + xhr.status);
+                        console.log("XHR response: " + xhr.responseText);
                         if (xhr.status === 200) {
                             alert(xhr.responseText);
                             location.reload();
@@ -165,11 +211,11 @@ include("query.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
-                        console.log("XHR status: " + xhr.status); 
-                        console.log("XHR response: " + xhr.responseText); 
+                        console.log("XHR status: " + xhr.status);
+                        console.log("XHR response: " + xhr.responseText);
                         if (xhr.status === 200) {
                             alert(xhr.responseText);
-                            location.reload(); 
+                            location.reload();
                         } else {
                             alert("Error updating order status.");
                         }
@@ -179,9 +225,6 @@ include("query.php");
             }
         }
     </script>
-
-
-
 </body>
 
 </html>
