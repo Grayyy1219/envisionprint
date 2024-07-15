@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2024 at 03:12 PM
+-- Generation Time: Jul 15, 2024 at 06:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,6 @@ USE `envisionprint_db`;
 -- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -44,14 +43,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `ItemID`, `product_name`, `quantity`, `timestamp`) VALUES
-(145, 3, 43, '', 1, '2024-07-08 11:26:02'),
-(146, 3, 46, '', 1, '2024-07-08 11:26:11'),
-(147, 3, 56, '', 1, '2024-07-08 11:26:21'),
-(148, 3, 44, '', 4, '2024-07-08 11:26:32'),
-(149, 3, 1, '', 1, '2024-07-08 12:06:09'),
-(150, 3, 47, '', 2, '2024-07-08 12:06:59'),
-(151, 3, 48, '', 1, '2024-07-08 12:08:22'),
-(152, 3, 55, '', 1, '2024-07-08 12:10:24');
+(188, 3, 42, '', 1, '2024-07-15 14:32:39'),
+(190, 3, 43, '', 2, '2024-07-15 16:42:15');
 
 -- --------------------------------------------------------
 
@@ -59,7 +52,6 @@ INSERT INTO `cart` (`cart_id`, `customer_id`, `ItemID`, `product_name`, `quantit
 -- Table structure for table `category`
 --
 
-DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `CategoryID` int(11) NOT NULL,
   `Category` varchar(200) NOT NULL,
@@ -83,7 +75,6 @@ INSERT INTO `category` (`CategoryID`, `Category`, `img`) VALUES
 -- Table structure for table `currentuser`
 --
 
-DROP TABLE IF EXISTS `currentuser`;
 CREATE TABLE `currentuser` (
   `UserId` int(11) NOT NULL,
   `FName` varchar(50) NOT NULL,
@@ -107,7 +98,6 @@ INSERT INTO `currentuser` (`UserId`, `FName`, `username`, `email`, `address`, `p
 -- Table structure for table `items`
 --
 
-DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `ItemID` int(11) NOT NULL,
   `ItemName` varchar(200) NOT NULL,
@@ -116,30 +106,32 @@ CREATE TABLE `items` (
   `ItemImg` varchar(200) NOT NULL,
   `Price` decimal(11,2) DEFAULT NULL,
   `Solds` int(11) NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `Quantity` int(11) NOT NULL,
+  `rating` float DEFAULT 0,
+  `rating_count` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`ItemID`, `ItemName`, `Description`, `Category`, `ItemImg`, `Price`, `Solds`, `Quantity`) VALUES
-(1, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI  Solo Photocards  With Backprint  9pcs.jpeg', 79.00, 1, 31),
-(42, 'PUREGOLD x BINI | With Backprint | 9pcs | Matte Coat Back to Back', 'Elevate your style with the exclusive PUREGOLD x BINI collection! This unique set includes 9 pieces featuring a trendy backprint design. Each item is crafted with a high-quality matte coat finish, offering a sleek and modern look that\'s perfect for any occasion. The back-to-back design ensures a striking appearance from every angle, making this collection a must-have for fashion enthusiasts.', 'Photocards', 'upload\\item\\PUREGOLD x BINI.jpeg', 89.00, 58, 752),
-(43, 'BINI | BINI WAND | Fanmade Photocards | With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI WAND.jpeg', 84.00, 1, 522),
-(44, 'Test1', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(45, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(46, 'Test2', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(47, 'Test3', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 2, 421),
-(48, 'Test4', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(49, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(50, 'Test5', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(51, 'Test6', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(52, 'Test7', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(53, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(54, 'Test8', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(55, 'Test9', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423),
-(56, 'Spotify Keychain', 'Carry your favorite tunes with you wherever you go with the Spotify Keychain. This stylish and functional accessory lets you showcase your love for music in a unique way. Featuring a sleek design with the iconic Spotify logo, this keychain is perfect for music lovers and Spotify enthusiasts alike.', 'Keychain', 'upload\\item\\Spotify Keychain.jpeg', 100.00, 6, 417);
+INSERT INTO `items` (`ItemID`, `ItemName`, `Description`, `Category`, `ItemImg`, `Price`, `Solds`, `Quantity`, `rating`, `rating_count`) VALUES
+(1, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI  Solo Photocards  With Backprint  9pcs.jpeg', 79.00, 10, 22, 2.125, 20),
+(42, 'PUREGOLD x BINI | With Backprint | 9pcs | Matte Coat Back to Back', 'Elevate your style with the exclusive PUREGOLD x BINI collection! This unique set includes 9 pieces featuring a trendy backprint design. Each item is crafted with a high-quality matte coat finish, offering a sleek and modern look that\'s perfect for any occasion. The back-to-back design ensures a striking appearance from every angle, making this collection a must-have for fashion enthusiasts.', 'Photocards', 'upload\\item\\PUREGOLD x BINI.jpeg', 89.00, 63, 747, 2.5, 20),
+(43, 'BINI | BINI WAND | Fanmade Photocards | With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI WAND.jpeg', 84.00, 527, 330, 3.25, 20),
+(44, 'BINI | Solo Photocard 0', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 9, 414, 3.96667, 30),
+(45, 'BINI | Solo Photocard 1', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 2, 421, 4.3913, 23),
+(46, 'BINI | Solo Photocard 2', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 12, 411, 4.33333, 3),
+(47, 'BINI | Solo Photocard 3', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 4, 419, 0, 0),
+(48, 'BINI | Solo Photocard 4', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 2, 421, 4.33333, 3),
+(49, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423, 0, 0),
+(50, 'BINI | Solo Photocard 5', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 1, 422, 4.33333, 3),
+(51, 'BINI | Solo Photocard 6', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 13, 410, 4.33333, 3),
+(52, 'BINI | Solo Photocard 7', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 1, 422, 4.33333, 3),
+(53, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 0, 423, 0, 0),
+(54, 'BINI | Solo Photocard 8', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 1, 422, 4.33333, 3),
+(55, 'BINI | Solo Photocard 9BINI | Solo Photocard 9BINI | Solo Photocard 9BINI | Solo Photocard 9BINI | Solo Photocard 9BINI | Solo Photocard 9', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 100.00, 10, 413, 3.26667, 15),
+(56, 'Spotify Keychain', 'Carry your favorite tunes with you wherever you go with the Spotify Keychain. This stylish and functional accessory lets you showcase your love for music in a unique way. Featuring a sleek design with the iconic Spotify logo, this keychain is perfect for music lovers and Spotify enthusiasts alike.', 'Keychain', 'upload\\item\\Spotify Keychain.jpeg', 100.00, 19, 404, 3.2, 5);
 
 -- --------------------------------------------------------
 
@@ -147,29 +139,31 @@ INSERT INTO `items` (`ItemID`, `ItemName`, `Description`, `Category`, `ItemImg`,
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `product_id` varchar(255) NOT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `order_quantity` int(11) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `rating` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `customer_id`, `product_id`, `order_date`, `order_quantity`, `total_amount`, `status`) VALUES
-(46, 3, ',47', '2024-07-08 05:40:28', 0, 200.00, 0),
-(47, 3, '47', '2024-07-08 05:40:56', 2, 200.00, 0),
-(48, 3, '56,42', '2024-07-08 06:01:53', 6, 5406.00, 0),
-(49, 3, '43', '2024-07-08 06:35:29', 1, 84.00, 0),
-(50, 3, '', '2024-07-08 06:44:11', 0, 0.00, 0),
-(51, 3, '42,1', '2024-07-08 11:42:58', 4, 435.00, 0),
-(52, 3, '', '2024-07-08 12:02:13', 0, 0.00, 0);
+INSERT INTO `orders` (`order_id`, `customer_id`, `product_id`, `order_date`, `order_quantity`, `total_amount`, `status`, `rating`) VALUES
+(6454447, 3, '1,42,43', '2024-07-14 13:58:10', 1, 252.00, 1, 4),
+(6454448, 3, '44,45', '2024-07-14 13:59:49', 1, 200.00, 0, 3),
+(6454449, 3, '56', '2024-07-13 07:21:15', 1, 100.00, 1, 0),
+(6454450, 3, '56', '2024-07-13 07:22:03', 1, 100.00, 1, 0),
+(6454451, 3, '44,56', '2024-07-13 07:22:59', 1, 200.00, 1, 3),
+(6454452, 3, '55', '2024-07-13 07:27:10', 1, 80.00, 1, 1),
+(6454453, 3, '1,42,43,44,45,46,48,50,51,52,54,55', '2024-07-12 13:57:56', 3, 1048.00, 1, 5),
+(6454454, 3, '56', '2024-07-15 16:35:28', 2, 200.00, 1, 3),
+(6454455, 3, '56', '2024-07-15 16:36:25', 1, 100.00, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -177,7 +171,6 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `product_id`, `order_date`, `or
 -- Table structure for table `page`
 --
 
-DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `ItemID` int(11) NOT NULL,
   `Itemname` varchar(50) NOT NULL,
@@ -201,7 +194,6 @@ INSERT INTO `page` (`ItemID`, `Itemname`, `value`) VALUES
 -- Table structure for table `payment`
 --
 
-DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
@@ -216,12 +208,15 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_id`, `order_id`, `customer_id`, `payment_date`, `amount_paid`, `payment_mode`) VALUES
-(435412, 47, 3, '2024-07-08 05:40:56', 200.00, 'Gcash'),
-(435413, 48, 3, '2024-07-08 06:01:53', 5406.00, 'Cash on Delivery'),
-(435414, 49, 3, '2024-07-08 06:35:29', 84.00, 'Credit Card'),
-(435415, 50, 3, '2024-07-08 06:44:11', 0.00, 'Credit Card'),
-(435416, 51, 3, '2024-07-08 11:42:58', 435.00, 'Cash on Delivery'),
-(435417, 52, 3, '2024-07-08 12:02:13', 0.00, 'Visa');
+(435430, 6454447, 3, '2024-07-13 07:20:59', 252.00, 'Cash On Delivery'),
+(435431, 6454448, 3, '2024-07-13 07:21:09', 200.00, 'Cash On Delivery'),
+(435432, 6454449, 3, '2024-07-13 07:21:15', 100.00, 'Visa'),
+(435433, 6454450, 3, '2024-07-13 07:22:03', 100.00, 'Cash On Delivery'),
+(435434, 6454451, 3, '2024-07-13 07:22:59', 200.00, 'Cash On Delivery'),
+(435435, 6454452, 3, '2024-07-13 07:27:10', 80.00, 'Cash On Delivery'),
+(435436, 6454453, 3, '2024-07-13 08:30:24', 1048.00, 'Debit Card'),
+(435437, 6454454, 3, '2024-07-15 16:35:28', 200.00, 'BPI'),
+(435438, 6454455, 3, '2024-07-15 16:36:25', 100.00, 'BPI');
 
 -- --------------------------------------------------------
 
@@ -229,7 +224,6 @@ INSERT INTO `payment` (`payment_id`, `order_id`, `customer_id`, `payment_date`, 
 -- Table structure for table `paymethod`
 --
 
-DROP TABLE IF EXISTS `paymethod`;
 CREATE TABLE `paymethod` (
   `method_name` varchar(255) NOT NULL,
   `method_img` varchar(255) NOT NULL
@@ -251,7 +245,6 @@ INSERT INTO `paymethod` (`method_name`, `method_img`) VALUES
 -- Table structure for table `promo_codes`
 --
 
-DROP TABLE IF EXISTS `promo_codes`;
 CREATE TABLE `promo_codes` (
   `id` int(11) NOT NULL,
   `code` varchar(50) NOT NULL,
@@ -272,27 +265,9 @@ INSERT INTO `promo_codes` (`id`, `code`, `discount`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `purchase_history`
---
-
-DROP TABLE IF EXISTS `purchase_history`;
-CREATE TABLE `purchase_history` (
-  `id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `customer_name` varchar(255) NOT NULL,
-  `borrow_date` date NOT NULL,
-  `due_date` date NOT NULL,
-  `penalty_paid` int(11) NOT NULL,
-  `returned` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `slideshow`
 --
 
-DROP TABLE IF EXISTS `slideshow`;
 CREATE TABLE `slideshow` (
   `SlideID` int(11) NOT NULL,
   `imagename` varchar(50) NOT NULL,
@@ -315,7 +290,6 @@ INSERT INTO `slideshow` (`SlideID`, `imagename`, `imagelocation`) VALUES
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `FName` varchar(50) NOT NULL,
@@ -339,7 +313,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`UserID`, `FName`, `username`, `password`, `email`, `phone`, `address`, `attempt`, `block`, `admin`, `profile`, `verification`, `verification_code`) VALUES
 (1, 'EnVision Print', 'admin', 'admin', 'envision.print@gmail.com', '09911180769', 'Tilapayong, Baliuag, Bulacan', 0, 0, 1, 'upload/profile/Bag_ Cloud Shape Handbag-₱268.png', '1', '72240'),
 (2, 'Kyle Cedric', 'kyle', '$2y$10$GEOwpbsdWLr4arEBunA8LeDbPct4/rTe6YZORIBSwjiE6rhKgxS06', 'kyle.cedric@gmail.com', '09911180766', 'Tilapayong, Baliuag, Bulacan', 0, 0, 0, 'upload/profile/Bag_ Cloud Shape Handbag-₱268.png', '1', '72240'),
-(3, 'Kim Jisoo', 'lance', '$2y$10$5C5gf8EuGrhIrv0RtFsAxOyrF6iSe8E71HaNOdMlRdunw88LtA56K', 'lance.musngi@gmail.com', '09911180766', 'Sanbon-dong, Gunpo-si, South Korea', 0, 0, 0, 'upload/profile/449612955_7814687338627856_4325307237619088894_n.jpg', '1', '25911');
+(3, 'Kim Jisoo', 'lance', '$2y$10$5C5gf8EuGrhIrv0RtFsAxOyrF6iSe8E71HaNOdMlRdunw88LtA56K', 'lance.musngi@gmail.com', '09911180766', 'Sanbon-dong, Gunpo-si, South Korea', 0, 0, 0, 'upload/profile/449612955_7814687338627856_4325307237619088894_n.jpg', '1', '18046');
 
 --
 -- Indexes for dumped tables
@@ -405,13 +379,6 @@ ALTER TABLE `promo_codes`
   ADD UNIQUE KEY `code` (`code`);
 
 --
--- Indexes for table `purchase_history`
---
-ALTER TABLE `purchase_history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `book_id` (`book_id`);
-
---
 -- Indexes for table `slideshow`
 --
 ALTER TABLE `slideshow`
@@ -431,7 +398,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -455,7 +422,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6454456;
 
 --
 -- AUTO_INCREMENT for table `page`
@@ -467,19 +434,13 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435418;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435439;
 
 --
 -- AUTO_INCREMENT for table `promo_codes`
 --
 ALTER TABLE `promo_codes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `purchase_history`
---
-ALTER TABLE `purchase_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `slideshow`

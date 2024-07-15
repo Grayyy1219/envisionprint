@@ -24,7 +24,7 @@ include("query.php");
             cursor: pointer;
             width: 20px;
             height: 20px;
-            background: url('star-empty.png') no-repeat;
+            background: url('css/img/star-empty.png') no-repeat;
             background-size: contain;
         }
 
@@ -32,7 +32,7 @@ include("query.php");
         .star-rating input:checked~label,
         .star-rating label:hover,
         .star-rating label:hover~label {
-            background: url('star-filled.png') no-repeat;
+            background: url('css/img/star-filled.png') no-repeat;
             background-size: contain;
         }
     </style>
@@ -107,31 +107,36 @@ include("query.php");
                                     $order_id = $current_id;
                                     $price = "₱ " . $orderinforow['amount_paid'];
                                     $payment_mode = $orderinforow['payment_mode'];
-                                    if ($rating > 0) {
-                                        $rating_html = "<div class='star-rating'>";
-                                        for ($i = 5; $i >= 1; $i--) {
-                                            if ($rating <= $i) {
-                                                $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i' checked><label for='rating-$order_id-$i'></label>";
-                                            } else {
-                                                $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i'><label for='rating-$order_id-$i'></label> ";
+                                    if ($status != "0") {
+                                        if ($rating > 0) {
+                                            $rating_html = "<div class='star-rating'>";
+                                            for ($i = 5; $i >= 1; $i--) {
+                                                if ($rating <= $i) {
+                                                    $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i' checked><label for='rating-$order_id-$i'></label>";
+                                                } else {
+                                                    $rating_html .= "<input type='radio' name='rating-$order_id' id='rating-$order_id-$i' value='$i'><label for='rating-$order_id-$i'></label> ";
+                                                }
                                             }
+                                            $rating_html .= "</div>";
+                                        } else {
+                                            $rating_html = "<div class='ratingtd'> <div class='star-rating'>
+                                                <input type='radio' name='rating-$order_id' id='rating-$order_id-5' value='5'><label for='rating-$order_id-5'></label>
+                                                <input type='radio' name='rating-$order_id' id='rating-$order_id-4' value='4'><label for='rating-$order_id-4'></label>
+                                                <input type='radio' name='rating-$order_id' id='rating-$order_id-3' value='3'><label for='rating-$order_id-3'></label>
+                                                <input type='radio' name='rating-$order_id' id='rating-$order_id-2' value='2'><label for='rating-$order_id-2'></label>
+                                                <input type='radio' name='rating-$order_id' id='rating-$order_id-1' value='1'><label for='rating-$order_id-1'></label>
+                                            </div>
+                                            <input type='submit' class='ratebtn' formaction='save_rating.php' value='Save Rating'></div>";
                                         }
-                                        $rating_html .= "</div>";
                                     } else {
-                                        $rating_html = "<div class='ratingtd'> <div class='star-rating'>
-                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-5' value='5'><label for='rating-$order_id-5'></label>
-                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-4' value='4'><label for='rating-$order_id-4'></label>
-                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-3' value='3'><label for='rating-$order_id-3'></label>
-                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-2' value='2'><label for='rating-$order_id-2'></label>
-                                            <input type='radio' name='rating-$order_id' id='rating-$order_id-1' value='1'><label for='rating-$order_id-1'></label>
-                                        </div>
-                                        <input type='submit' class='ratebtn' formaction='save_rating.php' value='Save Rating'></div>";
+                                        $rating_html = " ";
                                     }
+
                                     $style = "class='tdb'";
                                     if ($status == "0") {
                                         $returnbtn = "<button class='buybtn' onclick='recivedorder($order_id)'>Received</button>";
                                     } else if ($status == "1") {
-                                        $returnbtn = "<div><p>Order received.<br><img src='star.png' width='20px'><br></p><button class='buybtn' onclick='returnorder($order_id)'>Return</button></div>";
+                                        $returnbtn = "<div><p>Order received.</p><button class='buybtn' onclick='returnorder($order_id)'>Return</button></div>";
                                     } else if ($status == "2") {
                                         $returnbtn = "<p>Pending Return</p>";
                                     } else if ($status == "3") {

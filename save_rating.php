@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     echo '<script>';
     echo 'alert("Thankyou for your feedback.");';
-    echo 'window.location.href = "history.php";';
+    echo 'window.location.href = document.referrer;';
     echo '</script>';
     exit();
 }

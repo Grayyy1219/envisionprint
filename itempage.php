@@ -17,6 +17,8 @@
     $Price = $row["Price"];
     $Solds = $row["Solds"];
     $Quantity = $row["Quantity"];
+    $Rating = $row["rating"];
+    $rating_count = $row["rating_count"];
     $Description = $row["Description"];
     $shortenedTitle = (strlen($ItemName) > 100) ? substr($ItemName, 0, 100) . '...' : $ItemName;
     ?>
@@ -25,7 +27,29 @@
     include("query.php"); ?>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/itempage.css">
-   
+    <style>
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            width: 15px;
+            height: 15px;
+            background: url('css/img/star-empty.png') no-repeat;
+            background-size: contain;
+        }
+
+        .star-rating input:checked~label {
+            background: url('css/img/star-filled.png') no-repeat;
+            background-size: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,6 +75,19 @@
                         <div>
                             <p class="Title"><b><?= $shortenedTitle ?></b></p>
                             <p>Qty. (<?= $Quantity ?>)</p>
+                            <div class='star-rating'>
+                                <?php
+                                echo "($rating_count) ";
+                                for ($i = 5; $i >= 1; $i--) {
+                                    if ($Rating >= $i) {
+                                        echo "<input type='radio' value='$i' checked><label></label>";
+                                    } else {
+                                        echo  "<input type='radio' value='$i'><label ></label> ";
+                                    }
+                                }
+
+                                ?>
+                            </div>
                         </div>
                         <div class="desc">
                             <p class="desc"><?= $Description ?></p>

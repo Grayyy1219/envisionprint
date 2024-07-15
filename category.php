@@ -11,29 +11,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/landingpage.css">
     <link rel="stylesheet" href="css/page.css">
-    <style>
-        .star-rating {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-        }
 
-        .star-rating input {
-            display: none;
-        }
-
-        .star-rating label {
-            width: 15px;
-            height: 15px;
-            background: url('star-empty.png') no-repeat;
-            background-size: contain;
-        }
-
-        .star-rating input:checked~label {
-            background: url('star-filled.png') no-repeat;
-            background-size: contain;
-        }
-    </style>
 </head>
 
 <body>
@@ -88,7 +66,7 @@
                     $ItemImage = $row["ItemImg"];
                     $Price = $row["Price"];
                     $Solds = $row["Solds"];
-                    $Rating = $row["rating"];
+                    $Rating = number_format($row["rating"], 2);
                     $Quantity = $row["Quantity"];
                     $Description = $row["Description"];
                     $shortenedTitle = (strlen($ItemName) > 55) ? substr($ItemName, 0, 55) . '...' : $ItemName;
@@ -99,19 +77,10 @@
                             <div>
                                 <p><?= $shortenedTitle ?></p>
                                 <p class='stocks'>Stocks <?= $Quantity ?></p>
-                                <p class='stocks'>Rating <?= $Rating ?></p>
-                                <div class='star-rating'>
-                                    <?php
-                                    for ($i = 5; $i >= 1; $i--) {
-                                        if ($Rating >= $i) {
-                                            echo "<input type='radio' value='$i' checked><label></label>";
-                                        } else {
-                                            echo  "<input type='radio' value='$i'><label ></label> ";
-                                        }
-                                    }
+                                <p class='stocks'><img src="css/img/star-filled.png" style="width: 15px; height: 15px;">(<?= $Rating ?>)</p>
 
-                                    ?>
-                                </div>
+
+
                             </div>
                             <div class="tocart">
                                 <h4>₱<?= $Price ?></h4>
