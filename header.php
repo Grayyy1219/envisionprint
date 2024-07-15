@@ -56,6 +56,7 @@
         <p style="color: white;">Please Verify your Account first, Click <span><b class='verifyb pointer' style="color: white;text-decoration: underline;">Here</b></a></span></p>
     </div>
 <?php } ?>
+<?php include("popups.php"); ?>
 <script>
     var sortValue;
     var filterValue;

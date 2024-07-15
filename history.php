@@ -84,11 +84,13 @@ include("query.php");
                                     $payment_mode = $orderinforow['payment_mode'];
                                     $style = "class='tdb'";
                                     if ($status == "0") {
-                                        $returnbtn = "<button class='buybtn' onlick='recivedorder($order_id)'>Recived</button>";
+                                        $returnbtn = "<button class='buybtn' onclick='recivedorder($order_id)'>Received</button>";
                                     } else if ($status == "1") {
-                                        $returnbtn = "<div><p>Order recived.</p><button class='buybtn' onlick='recivedorder($order_id)'>Return</button></div>";
+                                        $returnbtn = "<div><p>Order received.</p><button class='buybtn' onclick='returnorder($order_id)'>Return</button></div>";
                                     } else if ($status == "2") {
-                                        $returnbtn = "<p>Return Aprroved</p>";
+                                        $returnbtn = "<p>Pending Return</p>";
+                                    } else if ($status == "3") {
+                                        $returnbtn = "<p>Return Approved</p>";
                                     }
                                 } else {
                                     $order_date = " ";
@@ -134,6 +136,38 @@ include("query.php");
             </div>
         </section>
     </form>
+    <script>
+        function recivedorder(order_id) {
+            if (confirm("Are you sure you have received the order?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "update_order_status.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert("Order marked as received.");
+                        location.reload();
+                    }
+                };
+                xhr.send("action=received&order_id=" + order_id);
+            }
+        }
+
+        function returnorder(order_id) {
+            if (confirm("Are you sure you want to return the order?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "update_order_status.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert("Order return request submitted.");
+                        location.reload();
+                    }
+                };
+                xhr.send("action=return&order_id=" + order_id);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
