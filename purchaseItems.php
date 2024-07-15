@@ -41,7 +41,6 @@ if (!$result) {
 <body>
     <?php
     include("header.php");
-    include("popups.php");
     ?>
     <section class="cashoutsec">
         <div class="checkout">

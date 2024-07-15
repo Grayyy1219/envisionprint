@@ -6,11 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $order_id = (int)$_POST['order_id'];
 
     if ($action == 'received') {
-        $status = 1; 
+        $status = 1; // Received
     } elseif ($action == 'return') {
-        $status = 2; 
+        $status = 2; // Pending Return
     } else {
-        exit("Invalid action.");
+        echo "Invalid action.";
+        exit();
     }
 
     $update_status_query = "UPDATE orders SET status = $status WHERE order_id = $order_id";
@@ -20,4 +21,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error updating order status: " . mysqli_error($con);
     }
 }
-?>

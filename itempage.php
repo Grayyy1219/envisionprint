@@ -30,7 +30,6 @@
 <body>
     <?php
     include("header.php");
-    include("popups.php");
     ?>
     <section class="center">
         <form id="myForm" action='' method='post' enctype='multipart/form-data'>

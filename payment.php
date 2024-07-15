@@ -167,8 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include("header.php");
-    include("popups.php"); ?>
+    <?php include("header.php"); ?>
     <div class="popupd">
         <div class="done">
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="payment-form">

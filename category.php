@@ -17,7 +17,7 @@
 
     <?php
     include("header.php");
-    include("popups.php");
+
     if (!isset($_GET['page'])) {
         $_GET['page'] = 1;
     }

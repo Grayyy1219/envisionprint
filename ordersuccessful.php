@@ -44,7 +44,6 @@
 <body>
     <?php
     include("header.php");
-    include("popups.php");
     ?>
     <div class="popupd">
         <div class="done">

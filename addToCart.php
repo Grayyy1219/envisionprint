@@ -46,7 +46,6 @@
 <body>
     <?php
     include("header.php");
-    include("popups.php");
 
     $productName = mysqli_real_escape_string($con, $_POST['Title']);
     $quantity = mysqli_real_escape_string($con, $_POST['quantity']);

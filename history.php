@@ -16,7 +16,7 @@ include("query.php");
 
 <body>
     <?php include("header.php");
-    include("popups.php");
+
 
     $items_per_page = 10;
 
@@ -143,9 +143,15 @@ include("query.php");
                 xhr.open("POST", "update_order_status.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        alert("Order marked as received.");
-                        location.reload();
+                    if (xhr.readyState === 4) {
+                        console.log("XHR status: " + xhr.status); // Log status
+                        console.log("XHR response: " + xhr.responseText); // Log response text
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                            location.reload();
+                        } else {
+                            alert("Error updating order status.");
+                        }
                     }
                 };
                 xhr.send("action=received&order_id=" + order_id);
@@ -158,15 +164,23 @@ include("query.php");
                 xhr.open("POST", "update_order_status.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        alert("Order return request submitted.");
-                        location.reload();
+                    if (xhr.readyState === 4) {
+                        console.log("XHR status: " + xhr.status); // Log status
+                        console.log("XHR response: " + xhr.responseText); // Log response text
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                            location.reload(); // Refresh the page to show updated status
+                        } else {
+                            alert("Error updating order status.");
+                        }
                     }
                 };
                 xhr.send("action=return&order_id=" + order_id);
             }
         }
     </script>
+
+
 
 </body>
 

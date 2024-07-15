@@ -17,7 +17,6 @@
 <body>
     <?php
     include("header.php");
-    include("popups.php");
     ?>
     <br><br>
     <h1 class="center">Personalise your account</h1>

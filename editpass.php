@@ -15,7 +15,6 @@
 <body>
     <?php
     include("header.php");
-    include("popups.php");
     ?>
     <br><br>
     <h1 class="center">Change Account Password</h1>

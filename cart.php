@@ -19,8 +19,7 @@ $totalCartValue = 0;
 ?>
 
 <body>
-    <?php include("header.php");
-    include("popups.php"); ?>
+    <?php include("header.php"); ?>
     <form method="post" action="" id="cartForm" enctype="multipart/form-data">
         <section class="center">
             <div class="Itemcart">
