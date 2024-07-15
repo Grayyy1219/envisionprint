@@ -1,0 +1,84 @@
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.toppanel {
+  display: flex;
+  height: 50px;
+  background-color: #fff;
+  border-color: rgb(8, 8, 8);
+  color: #060000;
+  padding: 15px;
+  font-size: 18px;
+  z-index: 2;
+  gap: 10px;
+}
+
+.sidepanel {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 200px;
+  height: 100vh;
+  z-index: 2;
+  padding-left: 25px;
+}
+
+.sidepanel a {
+  display: flex;
+  color: #000;
+  font-size: 12px;
+  height: 25px;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.collapse a {
+  padding-left: 30px;
+}
+
+.sidepanel a img {
+  filter: brightness(0.5);
+  height: 15px;
+}
+
+.nested-menu a:hover {
+  outline: none;
+  background-color: #333 !important;
+  filter: brightness(200%);
+}
+
+.sidepanel a:hover {
+  outline: none;
+  background-color: #333 !important;
+  filter: brightness(200%);
+}
+
+.collapse {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in;
+  padding-top: -10px;
+}
+
+.collapse.show {
+  max-height: 500px;
+  padding-top: 0px;
+}
+
+.dom {
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  display: flex;
+  margin: 50px 0 0 200px;
+  width: 86.7%;
+  flex-direction: column;
+  padding: 50px;
+}
+#previewImage {
+  width: 100%;
+}

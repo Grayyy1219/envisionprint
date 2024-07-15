@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
             if ($updateQuery) {
                 if ($row['admin'] == 1) {
                     echo '<script>alert("Successfully logged in as admin");</script>';
-                    echo '<script>window.location.href = "admin2.php?dashboard";</script>';
+                    echo '<script>window.location.href = "admin.php?dashboard";</script>';
                 } else {
                     echo '<script>alert("Successfully logged in");</script>';
                     echo '<script>window.location.href = "Landingpage.php";</script>';
