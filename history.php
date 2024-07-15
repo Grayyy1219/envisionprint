@@ -144,8 +144,8 @@ include("query.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
-                        console.log("XHR status: " + xhr.status); // Log status
-                        console.log("XHR response: " + xhr.responseText); // Log response text
+                        console.log("XHR status: " + xhr.status); 
+                        console.log("XHR response: " + xhr.responseText); 
                         if (xhr.status === 200) {
                             alert(xhr.responseText);
                             location.reload();
@@ -165,11 +165,11 @@ include("query.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
-                        console.log("XHR status: " + xhr.status); // Log status
-                        console.log("XHR response: " + xhr.responseText); // Log response text
+                        console.log("XHR status: " + xhr.status); 
+                        console.log("XHR response: " + xhr.responseText); 
                         if (xhr.status === 200) {
                             alert(xhr.responseText);
-                            location.reload(); // Refresh the page to show updated status
+                            location.reload(); 
                         } else {
                             alert("Error updating order status.");
                         }
