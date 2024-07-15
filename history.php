@@ -1,9 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 include("connect.php");
 include("query.php");
 ?>
-
-<html>
 
 <head>
     <title>Purchase history</title>
