@@ -11,6 +11,31 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/landingpage.css">
     <link rel="stylesheet" href="css/page.css">
+    <style>
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            background: url('star-empty.png') no-repeat;
+            background-size: contain;
+        }
+
+
+        .star-rating input:checked~label {
+            background: url('star-filled.png') no-repeat;
+            background-size: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,6 +90,7 @@
                     $ItemImage = $row["ItemImg"];
                     $Price = $row["Price"];
                     $Solds = $row["Solds"];
+                    $Rating = $row["rating"];
                     $Quantity = $row["Quantity"];
                     $Description = $row["Description"];
                     $shortenedTitle = (strlen($ItemName) > 55) ? substr($ItemName, 0, 55) . '...' : $ItemName;
@@ -74,7 +100,19 @@
                         <div class="iteminfo">
                             <div>
                                 <p><?= $shortenedTitle ?></p>
-                                <p class="stocks">Stocks <?= $Quantity ?></p>
+                                <p class='stocks'>Stocks <?= $Quantity ?></p>
+                                <div class='rating star-rating'>
+                                    <?php
+                                    $ratingStars = round($Rating * 2) / 2;
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($ratingStars >= $i) {
+                                            echo "<input type='radio' checked><label></label>";
+                                        } else {
+                                            echo "<input type='radio'><label></label>";
+                                        }
+                                    }
+                                    ?>
+                                </div>
                             </div>
                             <div class="tocart">
                                 <h4>₱<?= $Price ?></h4>

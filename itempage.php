@@ -25,6 +25,7 @@
     include("query.php"); ?>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/itempage.css">
+   
 </head>
 
 <body>
