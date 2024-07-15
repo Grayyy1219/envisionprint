@@ -15,7 +15,7 @@
         .star-rating {
             display: flex;
             flex-direction: row-reverse;
-            justify-content: center;
+            justify-content: flex-end;
         }
 
         .star-rating input {
@@ -23,13 +23,11 @@
         }
 
         .star-rating label {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background: url('star-empty.png') no-repeat;
             background-size: contain;
         }
-
 
         .star-rating input:checked~label {
             background: url('star-filled.png') no-repeat;
@@ -101,16 +99,17 @@
                             <div>
                                 <p><?= $shortenedTitle ?></p>
                                 <p class='stocks'>Stocks <?= $Quantity ?></p>
-                                <div class='rating star-rating'>
+                                <p class='stocks'>Rating <?= $Rating ?></p>
+                                <div class='star-rating'>
                                     <?php
-                                    $ratingStars = round($Rating * 2) / 2;
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        if ($ratingStars >= $i) {
-                                            echo "<input type='radio' checked><label></label>";
+                                    for ($i = 5; $i >= 1; $i--) {
+                                        if ($Rating >= $i) {
+                                            echo "<input type='radio' value='$i' checked><label></label>";
                                         } else {
-                                            echo "<input type='radio'><label></label>";
+                                            echo  "<input type='radio' value='$i'><label ></label> ";
                                         }
                                     }
+
                                     ?>
                                 </div>
                             </div>
