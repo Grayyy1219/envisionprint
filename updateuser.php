@@ -1,5 +1,6 @@
 <?php
 include("connect.php");
+include("query.php");
 
 $targetUserId = 1;
 $first_name = $_POST['first_name'];
@@ -32,6 +33,9 @@ if (isset($_POST["submit"])) {
             $queryUpdateUsers = mysqli_query($con, "UPDATE users SET profile = '$location', FName = '$first_name',  Email = '$email', address ='$address', phone = '$phone' WHERE username = '$targetUsername'");
 
             echo '<script>alert("Profile updated successfully for User: ' . $targetFName . '");</script>';
+            if ($$targetUsername = "admin ") {
+                echo '<script>window.location.href = "admin.php?dashboard";</script>';
+            }
             echo '<script>window.location.href = "Landingpage.php";</script>';
         } else {
             echo '<script>alert("Error retrieving username. Please try again later.");</script>';

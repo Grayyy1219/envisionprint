@@ -25,7 +25,7 @@
 
             <a href="" class="toggle" data-target="#page">Customer Page</a>
             <div id="page" class="collapse nested-menu">
-                <a href="admin.php?web_page">Edit Customer Page</a>
+                <a href="admin.php?edit_page">Edit Customer Page</a>
             </div>
 
             <a href="#" class="toggle" data-target="#products">Products</a>
@@ -68,12 +68,12 @@
             <a href="logout.php">Log Out</a>
         </div>
     </header>
-    <!-- <div class="dom">
+    <div class="dom">
         <?php
         if (isset($_GET['dashboard'])) {
             include("dashboard.php");
         }
-        if (isset($_GET['web_page'])) {
+        if (isset($_GET['edit_page'])) {
             include("admineditpage.php");
         }
         if (isset($_GET['view_products'])) {
@@ -83,10 +83,10 @@
             include("delete_product.php");
         }
         if (isset($_GET['edit_product'])) {
-            include("editbook.php");
+            include("edititem.php");
         }
         if (isset($_GET['insert_products'])) {
-            include("add_book_form.php");
+            include("add_item_form.php");
         }
         if (isset($_GET['view_category'])) {
             include("editgenre.php");
@@ -120,7 +120,7 @@
         }
         ?>
 
-    </div> -->
+    </div>
     <script>
         document.querySelectorAll('.toggle').forEach(function(toggle) {
             toggle.addEventListener('click', function(event) {
