@@ -84,3 +84,9 @@ div#pagination-container_category {
   font-weight: bold;
   height: 100%;
 }
+.ratingtd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}

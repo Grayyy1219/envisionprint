@@ -28,6 +28,7 @@ include("query.php");
             background-size: contain;
         }
 
+
         .star-rating input:checked~label,
         .star-rating label:hover,
         .star-rating label:hover~label {
@@ -117,14 +118,14 @@ include("query.php");
                                         }
                                         $rating_html .= "</div>";
                                     } else {
-                                        $rating_html = "<div class='star-rating'>
+                                        $rating_html = "<div class='ratingtd'> <div class='star-rating'>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-5' value='5'><label for='rating-$order_id-5'></label>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-4' value='4'><label for='rating-$order_id-4'></label>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-3' value='3'><label for='rating-$order_id-3'></label>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-2' value='2'><label for='rating-$order_id-2'></label>
                                             <input type='radio' name='rating-$order_id' id='rating-$order_id-1' value='1'><label for='rating-$order_id-1'></label>
                                         </div>
-                                        <input type='submit' formaction='save_rating.php' value='Save Rating'>";
+                                        <input type='submit' formaction='save_rating.php' value='Save Rating'></div>";
                                     }
                                     $style = "class='tdb'";
                                     if ($status == "0") {
@@ -156,7 +157,7 @@ include("query.php");
                                     </td>
                                     <td <?= $style ?> style="font-size: 12px;"><?= $price . "<br>" . $payment_mode ?></td>
                                     <td <?= $style ?>> <?= $order_date ?></td>
-                                    <td <?= $style ?>><?= $rating_html ?></td>
+                                    <td <?= $style ?> class="ratingtd"><?= $rating_html ?></td>
                                     <td <?= $style ?>><?= $returnbtn ?></td>
                                 </tr>
                             <?php } ?>
