@@ -45,19 +45,21 @@
                 <a href="admin.php?view_user">Customer List</a>
             </div>
 
-            <a href="#" class="toggle" data-target="#payments">Coupons</a>
+            <!-- <a href="#" class="toggle" data-target="#payments">Coupons</a>
             <div id="payments" class="collapse nested-menu">
                 <a href="admin.php?coupons">View Coupons</a>
-            </div>
+            </div> -->
 
-            <a href="#" class="toggle" data-target="#coupon">View Payments</a>
+            <!-- <a href="#" class="toggle" data-target="#coupon">View Payments</a>
             <div id="coupon" class="collapse nested-menu">
                 <a href="admin.php?payment_history">Payment History</a>
-            </div>
-            <a href="#" class="toggle" data-target="#reports">Reports</a>
+            </div> -->
+
+            <!-- <a href="#" class="toggle" data-target="#reports">Reports</a>
             <div id="reports" class="collapse nested-menu">
                 <a href="admin.php?reports">View Reports</a>
-            </div>
+            </div> -->
+
             <a href="#" class="toggle" data-target="#Info">Admin Info</a>
             <div id="Info" class="collapse nested-menu">
                 <a href="admin.php?aedituser">Change Basic info</a>
