@@ -68,7 +68,7 @@
             <a href="logout.php">Log Out</a>
         </div>
     </header>
-    <div class="dom">
+    <!-- <div class="dom">
         <?php
         if (isset($_GET['dashboard'])) {
             include("dashboard.php");
@@ -120,7 +120,7 @@
         }
         ?>
 
-    </div>
+    </div> -->
     <script>
         document.querySelectorAll('.toggle').forEach(function(toggle) {
             toggle.addEventListener('click', function(event) {
