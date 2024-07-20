@@ -103,7 +103,7 @@
                         </div>
 
                         <div class='cartbtn'>
-                            <div class='addtocart' onclick="submitForm('addToCart.php')"><input type='submit' value='Add to Basket' style='all:unset'></div>
+                            <div class='addtocart' onclick="submitForm('addToCart.php')"><input type='button' value='Add to Basket' style='all:unset'></div>
                         </div>
                     </div>
 
@@ -113,8 +113,14 @@
     </section>
     <script>
         function submitForm(action) {
-            document.getElementById("myForm").action = action;
-            document.getElementById("myForm").submit();
+            <?php
+            if ($username == 0) {
+                echo "toverify();";
+            } else {
+            ?>
+                document.getElementById("myForm").action = action;
+                document.getElementById("myForm").submit();
+            <?php } ?>
         }
     </script>
     <?php include("footer.php"); ?>

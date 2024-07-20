@@ -57,9 +57,3 @@
     </div>
   </div>
 </form>
-<script>
-  function submitForm(action) {
-    document.getElementById("myForm").action = action;
-    document.getElementById("myForm").submit();
-  }
-</script>

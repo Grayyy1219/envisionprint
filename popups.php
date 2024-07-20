@@ -124,17 +124,18 @@
 
         if (password !== confirmPassword) {
             alert("Passwords do not match. Please make sure both passwords are the same.");
-            return false; 
+            return false;
         }
         if (password.length < 8) {
             alert("Password must be at least 8 characters long.");
-            return false; 
+            return false;
         }
         return true;
     }
 
     function toverify() {
         alert("Please Log in into a Verified account first!");
+        openPopup('LoginPopup');
     }
 
     function openPopup(popupId) {

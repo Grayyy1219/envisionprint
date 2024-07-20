@@ -86,6 +86,7 @@ p.category {
   justify-content: center;
   gap: 10px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .count {
   display: flex;
