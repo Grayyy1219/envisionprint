@@ -4,7 +4,7 @@
     }
 
     img.slideimg {
-        width: 500px;
+        width: 20vw;
     }
 
     .modal {
@@ -105,6 +105,7 @@
 
     .divide {
         display: flex;
+        justify-content: center;
     }
 
     .modal-content {
@@ -131,6 +132,11 @@
         text-shadow: 0 1px 0 #fff;
         filter: alpha(opacity=20);
         opacity: .2;
+    }
+
+    td.td {
+        align-content: center;
+        text-align: center;
     }
 </style>
 
@@ -165,7 +171,7 @@
                                         $itemValue = $row['value'];
 
                                         if ($itemName === "Logo") {
-                                            $itemVisual = "<img src='$itemValue' width='70%' alt='Logo'>";
+                                            $itemVisual = "<img src='$itemValue' width='70px' alt='Logo'>";
                                         } elseif ($itemName === "Background Color") {
                                             $itemVisual = "<div class='colordiv' style='background-color: $itemValue;'></div>";
                                         } elseif ($itemName === "Text Color") {
@@ -331,9 +337,7 @@
     }
 
     function checkAdminPassword() {
-        // Prompt the user for the admin password
         var enteredPassword = prompt("Enter Admin Password:");
-        // Check if the entered password is correct
         if (enteredPassword === "<?php echo "$hashedadminpassword" ?>") {
             return true; // Password is correct
         } else if (enteredPassword === null) {

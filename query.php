@@ -40,7 +40,15 @@ while ($rowPage = mysqli_fetch_assoc($queryPage)) {
         $color = $rowPage["value"];
     }
 }
-
+$queryAdmin = mysqli_query($con, "SELECT * FROM users WHERE UserID = '1'");
+$rowUser2 = mysqli_fetch_assoc($queryAdmin);
+$hashedadminpassword = $rowUser2["password"];
+$alocation = $rowUser2["profile"];
+$ausername = $rowUser2["username"];
+$aFName = $rowUser2["FName"];
+$aemail = $rowUser2["email"];
+$aaddress = $rowUser2['address'];
+$aphone = $rowUser2['phone'];
 echo "
 <link rel='icon' href='css/img/logo.ico'>
 <style>
