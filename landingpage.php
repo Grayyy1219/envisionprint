@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/slideshow.css">
     <link rel="stylesheet" href="css/landingpage.css">
+
 </head>
 
 <body>
@@ -44,6 +45,12 @@
             <?php include("categories.php"); ?>
         </div>
         </div>
+    </section>
+    <section style="margin-bottom: 30px;">
+        <?php include("hotdeals.php"); ?>
+    </section>
+    <section style="margin-bottom: 30px;">
+        <?php include("trend.php"); ?>
     </section>
     <?php include("footer.php"); ?>
     <script src="config/slideshow.js"></script>

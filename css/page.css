@@ -99,3 +99,16 @@ a.pagination-link {
   flex-direction: column;
   gap: 5px;
 }
+.tocart h5 {
+  color: #888;
+  text-decoration: line-through;
+}
+.discountdiv {
+  display: flex;
+  gap: 5px;
+}
+
+.discount {
+  color: var(--primary);
+  font-weight: bold;
+}

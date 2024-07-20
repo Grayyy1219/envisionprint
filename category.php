@@ -65,11 +65,16 @@
                     $category = $row["Category"];
                     $ItemImage = $row["ItemImg"];
                     $Price = $row["Price"];
+                    $oldprice = $row["oldprice"];
                     $Solds = $row["Solds"];
                     $Rating = number_format($row["rating"], 2);
                     $Quantity = $row["Quantity"];
                     $Description = $row["Description"];
                     $shortenedTitle = (strlen($ItemName) > 55) ? substr($ItemName, 0, 55) . '...' : $ItemName;
+                    $discount = 0;
+                    if ($oldprice > 0) {
+                        $discount = (($oldprice - $Price) / $oldprice) * 100;
+                    }
                 ?>
                     <div class='itemcard'>
                         <img src='<?= $ItemImage ?>'>
@@ -79,11 +84,16 @@
                                 <p class='stocks'>Stocks <?= $Quantity ?></p>
                                 <p class='stocks'><img src="css/img/star-filled.png" style="width: 15px; height: 15px;">(<?= $Rating ?>)</p>
 
-
-
                             </div>
                             <div class="tocart">
                                 <h4>₱<?= $Price ?></h4>
+                                <?php
+                                if ($row['onsale'] == 1) { ?>
+                                    <div class="discountdiv">
+                                        <h5>₱<?= $oldprice ?></h5>
+                                        <p class="discount"><?= number_format($discount, 2) ?>% off</p>
+                                    </div>
+                                <?php } ?>
                                 <div class='buy' onclick="submitForm('itempage.php?ItemID=<?= $ItemID ?>')">
                                     <input type='submit' style='all:unset' class='div-29' value='Add to cart'>
                                 </div>
