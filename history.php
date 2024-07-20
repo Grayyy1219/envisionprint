@@ -140,7 +140,9 @@ include("query.php");
                                     } else if ($status == "2") {
                                         $returnbtn = "<p>Pending Return</p>";
                                     } else if ($status == "3") {
-                                        $returnbtn = "<p>Return Approved</p>";
+                                        $returnbtn = "<p style='color:var(--primary);'>Return Approved</p>";
+                                    } else if ($status == "4") {
+                                        $returnbtn = "<p style='color:red;'>Request Rejected</p>";
                                     }
                                 } else {
                                     $order_date = " ";

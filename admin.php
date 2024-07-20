@@ -45,13 +45,10 @@
                 <a href="admin.php?view_user">Customer List</a>
             </div>
 
-            <!-- <a href="#" class="toggle" data-target="#payments">Coupons</a>
-            <div id="payments" class="collapse nested-menu">
-                <a href="admin.php?coupons">View Coupons</a>
-            </div> -->
+            <a href="admin.php?return">Returns</a>
 
-            <!-- <a href="#" class="toggle" data-target="#coupon">View Payments</a>
-            <div id="coupon" class="collapse nested-menu">
+            <!-- <a href="#" class="toggle" data-target="#return">Returns</a>
+            <div id="return" class="collapse nested-menu">
                 <a href="admin.php?payment_history">Payment History</a>
             </div> -->
 
@@ -100,8 +97,8 @@
         if (isset($_GET['view_user'])) {
             include("blockuser.php");
         }
-        if (isset($_GET['coupons'])) {
-            include("coupon.php");
+        if (isset($_GET['return'])) {
+            include("return.php");
         }
         if (isset($_GET['edit_coupon'])) {
             include("edit_coupon.php");

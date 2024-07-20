@@ -90,17 +90,17 @@ $run_pro = mysqli_query($con, $get_pro);
                 <div class="pagination">
                     <ul class="pagination">
                         <?php if ($current_page > 1) : ?>
-                            <li><a href="http://localhost/northstardrug/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></li>
+                            <li><a href="http://localhost/envisionprint/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $current_page - 1; ?>">&laquo; Previous</a></li>
                         <?php endif; ?>
 
                         <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
                             <li <?php if ($page == $current_page) echo 'class="active"'; ?>>
-                                <a href="http://localhost/northstardrug/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                                <a href="http://localhost/envisionprint/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $page; ?>"><?php echo $page; ?></a>
                             </li>
                         <?php endfor; ?>
 
                         <?php if ($current_page < $total_pages) : ?>
-                            <li><a href="http://localhost/northstardrug/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $current_page + 1; ?>">Next &raquo;</a></li>
+                            <li><a href="http://localhost/envisionprint/admin.php?view_products&Category=<?php echo $selected_category; ?>&page=<?php echo $current_page + 1; ?>">Next &raquo;</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
