@@ -621,7 +621,7 @@ p.price {
 
 .label {
   width: 80%;
-  margin: auto;
+  margin: 0 auto;
   border-bottom: 1px solid #d5d5d5;
   background-color: white;
   padding: 10px;

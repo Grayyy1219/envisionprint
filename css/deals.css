@@ -1,0 +1,136 @@
+.form-container2 {
+  padding: 20px 140px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  transition: all 0.3s ease-in;
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #ccc;
+  background-color: #e0e0e0;
+  text-wrap: nowrap;
+  width: 200px;
+}
+
+.tab-button.active {
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+}
+
+.form-container2 label {
+  margin-top: 10px;
+}
+
+.form-container2 input[type="text"],
+.form-container2 input[type="number"],
+.form-container2 select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container2 button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container2 button:hover {
+  background-color: #218838;
+}
+
+.help-text {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.hotdeals,
+.label {
+  width: 100%;
+}
+
+.itemdeal {
+  width: 245.3px;
+}
+.display {
+  width: 50%;
+}
+.editdisplay {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.editdisplay form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.displayimgdeal img {
+  width: 130px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: solid 1px #b1aeae;
+  border-radius: 10px;
+}
+
+.displayitemdeal {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  border: solid 1px #bbb;
+  padding: 10px;
+  border-radius: 5px;
+}
+p.displaystocks {
+  color: #6d6d6d;
+  font-size: 12px;
+}
+.displaytocart h5 {
+  color: #888;
+  text-decoration: line-through;
+}
+.displaydiscountdiv {
+  display: flex;
+  gap: 5px;
+}
+.displaydiscount {
+  color: var(--primary);
+  font-weight: bold;
+}
+.displayiteminfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.displayitemdeal img {
+  max-width: 100px;
+  max-height: 100px;
+}

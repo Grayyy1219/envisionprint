@@ -23,16 +23,16 @@
         <div class="sidepanel">
             <a href="admin.php?dashboard">Dashboard</a>
 
-            <a href="" class="toggle" data-target="#page">Customer Page</a>
-            <div id="page" class="collapse nested-menu">
-                <a href="admin.php?edit_page">Edit Customer Page</a>
-            </div>
+            <a href="admin.php?edit_page">Customer Page</a>
+
 
             <a href="#" class="toggle" data-target="#products">Products</a>
             <div id="products" class="collapse nested-menu">
                 <a href="admin.php?insert_products">Insert Product</a>
                 <a href="admin.php?view_products">View Products</a>
             </div>
+
+            <a href="admin.php?deals">Deals</a>
 
             <a href="#" class="toggle" data-target="#Categories">Categories</a>
             <div id="Categories" class="collapse nested-menu">
@@ -47,10 +47,7 @@
 
             <a href="admin.php?return">Returns</a>
 
-            <!-- <a href="#" class="toggle" data-target="#return">Returns</a>
-            <div id="return" class="collapse nested-menu">
-                <a href="admin.php?payment_history">Payment History</a>
-            </div> -->
+
 
             <!-- <a href="#" class="toggle" data-target="#reports">Reports</a>
             <div id="reports" class="collapse nested-menu">
@@ -100,8 +97,8 @@
         if (isset($_GET['return'])) {
             include("return.php");
         }
-        if (isset($_GET['edit_coupon'])) {
-            include("edit_coupon.php");
+        if (isset($_GET['deals'])) {
+            include("deals.php");
         }
         if (isset($_GET['payment_history'])) {
             include("paymenthistory.php");

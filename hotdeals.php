@@ -9,9 +9,8 @@ $totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM items WHERE on
 $totalPages = ceil($totalRecords / $imagesPerPage);
 ?>
 
-<link rel="stylesheet" href="css/global.css" />
 <div class="label">
-  <p>Flash Deal</p>
+  <p>Flash Deals</p>
 </div>
 <form action="" id="myForm" method="post" enctype="multipart/form-data">
   <div class="hotdeals">
@@ -74,7 +73,7 @@ $totalPages = ceil($totalRecords / $imagesPerPage);
   </div>
 </form>
 <style>
-  
+
 </style>
 <script>
   function submitForm(action) {

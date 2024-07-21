@@ -108,30 +108,3 @@ $run_pro = mysqli_query($con, $get_pro);
         </div>
     </div>
 </div>
-<style>
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .pagination ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .pagination li {
-        display: inline;
-        margin: 0 5px;
-    }
-
-    .pagination li a {
-        text-decoration: none;
-        color: #007bff;
-    }
-
-    .pagination li.active a {
-        font-weight: bold;
-        text-decoration: underline;
-    }
-</style>

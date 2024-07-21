@@ -167,7 +167,6 @@ th {
 .pagination {
   display: inline-block;
   padding-left: 0;
-  margin: 20px 0;
   border-radius: 4px;
 }
 
@@ -179,7 +178,6 @@ th {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .pagination li {
