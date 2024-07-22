@@ -50,6 +50,15 @@
     $productName = mysqli_real_escape_string($con, $_POST['Title']);
     $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
 
+    if (isset($_FILES['img'])) {
+        if ($_FILES['img']['size'] > 0) {
+            $name = $_FILES['img']['name'];
+            $tmp_name = $_FILES['img']['tmp_name'];
+            $upload = "upload/upload/$name";
+            move_uploaded_file($tmp_name, $upload);
+        }
+    }
+
     $productResult = mysqli_query($con, "SELECT * FROM items WHERE ItemName = '$productName' LIMIT 1");
 
     if (!$productResult) {
@@ -80,8 +89,8 @@
     }
 
     $cartQuery = $quantityInCart > 0
-        ? "UPDATE cart SET quantity = quantity + $quantity WHERE customer_id = $UserID AND ItemID = $product_id"
-        : "INSERT INTO cart (customer_id, ItemID, quantity) VALUES ($UserID, $product_id, $quantity)";
+        ? "UPDATE cart SET quantity = quantity + $quantity, upload = '$upload' WHERE customer_id = $UserID AND ItemID = $product_id"
+        : "INSERT INTO cart (customer_id, ItemID, quantity, upload) VALUES ($UserID, $product_id, $quantity, '$upload')";
 
     if (mysqli_query($con, $cartQuery)) {
     ?>

@@ -31,6 +31,7 @@ $run_pro = mysqli_query($con, $get_pro);
                                 $counter = 0;
                                 $order_id = $row_pro['order_id'];
                                 $Quantity = $row_pro['order_quantity'];
+                                $upload = $row_pro['upload'];
                                 $status = $row_pro['status'];
                                 $product_ids  = $row_pro['product_id'];
                                 $customer_id = $row_pro['customer_id'];
@@ -54,6 +55,8 @@ $run_pro = mysqli_query($con, $get_pro);
 
                                 $product_id_array = explode(",", $product_ids);
                                 $quantity_array = explode(",", $Quantity);
+                                $upload_array = explode(",", $upload);
+
                                 $items_details = '';
 
                                 foreach ($product_id_array as $index => $product_id) {
@@ -70,6 +73,7 @@ $run_pro = mysqli_query($con, $get_pro);
                                             $ItemImg = $row_item['ItemImg'];
 
                                             $item_quantity = isset($quantity_array[$index]) ? $quantity_array[$index] : 0;
+                                            $Upload = isset($upload_array[$index]) ? $upload_array[$index] : 0;
 
                                             $items_details .= "<div class='returnitem'>
                     <div class='returninfo'>
@@ -78,6 +82,7 @@ $run_pro = mysqli_query($con, $get_pro);
                             <div class='info'>
                                 <h5>$ItemName</h5>
                                 <p>Date:" . date('F j, Y', strtotime($order_date)) . "</p>
+                                <p>Uploaded file: <a href='$Upload'>$Upload</a></p>
                             </div>
                         </div>
                         <div class='infos2'>

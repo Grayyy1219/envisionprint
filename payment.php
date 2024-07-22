@@ -4,15 +4,15 @@ include 'connect.php';
 include 'query.php';
 
 if (!isset($_SESSION['selectedItems'])) {
-    echo "No items selected for purchase.";
-    exit();
+    die("No items selected for purchase.");
 }
 
 $selectedItems = $_SESSION['selectedItems'];
 
-$getSelectedItemsQuery = "SELECT items.ItemID, items.ItemName, items.Price, cart.Quantity FROM cart 
-INNER JOIN items ON cart.ItemID = items.ItemID 
- WHERE cart.customer_id = ? AND cart.cart_id IN ($selectedItems)";
+// Prepare the query to fetch selected items
+$getSelectedItemsQuery = "SELECT items.ItemID, items.ItemName, items.Price, cart.Quantity, cart.upload 
+FROM cart INNER JOIN items ON cart.ItemID = items.ItemID 
+WHERE cart.customer_id = ? AND cart.cart_id IN ($selectedItems)";
 
 $stmtGetSelectedItems = mysqli_prepare($con, $getSelectedItemsQuery);
 mysqli_stmt_bind_param($stmtGetSelectedItems, "i", $UserID);
@@ -20,134 +20,71 @@ mysqli_stmt_execute($stmtGetSelectedItems);
 $result = mysqli_stmt_get_result($stmtGetSelectedItems);
 
 if (!$result) {
-    echo "Error retrieving selected items: " . mysqli_error($con);
-    exit();
+    die("Error retrieving selected items: " . mysqli_error($con));
 }
 
 $totalPurchaseValue = 0;
+$productIDs = [];
+$quantities = [];
+$uploads = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
     $totalPurchaseValue += $row['Quantity'] * $row['Price'];
+    $productIDs[] = $row['ItemID'];
+    $quantities[] = $row['Quantity'];
+    $uploads[] = $row['upload'];
 }
 
+// Concatenate product IDs, quantities, and uploads
+$productIDsString = implode(',', $productIDs);
+$quantitiesString = implode(',', $quantities);
+$uploadsString = implode(',', $uploads);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $paymentMode = isset($_POST['paymentMode']) ? $_POST['paymentMode'] : null;
+    $paymentMode = $_POST['paymentMode'] ?? 'Cash On Delivery'; // Default value if not set
 
-    if (isset($_SESSION['discountedPrice'])) {
-        $totalAmount = $_SESSION['discountedPrice'];
-    } else {
-        $totalAmount = $totalPurchaseValue;
-    }
+    $totalAmount = $_SESSION['discountedPrice'] ?? $totalPurchaseValue;
 
-    $saveOrderQuery = "INSERT INTO orders (customer_id, order_date, total_amount, order_quantity)
-  VALUES (?, CURRENT_TIMESTAMP, ?, ?)";
-
-
+    // Insert order
+    $saveOrderQuery = "INSERT INTO orders (customer_id, order_date, total_amount, order_quantity, product_id, upload) VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?, ?)";
     $stmtSaveOrder = mysqli_prepare($con, $saveOrderQuery);
 
-    echo " <script>console.log('$saveOrderQuery')</script>";
-
     if ($stmtSaveOrder) {
-        mysqli_stmt_bind_param($stmtSaveOrder, "idd", $UserID, $totalAmount, $orderQuantity);
-
-        $orderQuantity = 0;
-
+        $orderQuantity = array_sum($quantities);
+        mysqli_stmt_bind_param($stmtSaveOrder, "idsss", $UserID, $totalAmount, $quantitiesString, $productIDsString, $uploadsString);
         mysqli_stmt_execute($stmtSaveOrder);
-
         $orderId = mysqli_insert_id($con);
-
-        mysqli_data_seek($result, 0);
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            $productId = $row['ItemID'];
-            $orderQuantity += $row['Quantity'];
-
-            $updateOrderQuery = "UPDATE orders SET product_id = CONCAT(product_id, ',', ?) WHERE order_id = ?";
-            $stmtUpdate = mysqli_prepare($con, $updateOrderQuery);
-
-            if ($stmtUpdate) {
-                mysqli_stmt_bind_param($stmtUpdate, "si", $productId, $orderId);
-                mysqli_stmt_execute($stmtUpdate);
-                mysqli_stmt_close($stmtUpdate);
-            } else {
-                echo "Error updating order with product IDs: " . mysqli_error($con);
-            }
-        }
-
         mysqli_stmt_close($stmtSaveOrder);
     } else {
-        echo "Error preparing order query: " . mysqli_error($con);
+        die("Error preparing order query: " . mysqli_error($con));
     }
 
-    $savePaymentQuery = "INSERT INTO payment (order_id, customer_id, payment_mode, amount_paid) 
- VALUES (?, ?, ?, ?)";
-
+    // Insert payment details
+    $savePaymentQuery = "INSERT INTO payment (order_id, customer_id, payment_mode, amount_paid) VALUES (?, ?, ?, ?)";
     $stmtSavePayment = mysqli_prepare($con, $savePaymentQuery);
 
     if ($stmtSavePayment) {
         mysqli_stmt_bind_param($stmtSavePayment, "iisd", $orderId, $UserID, $paymentMode, $totalAmount);
-
-        $resultSavePayment = mysqli_stmt_execute($stmtSavePayment);
-
-        if ($resultSavePayment) {
-            echo "Payment details saved successfully.";
-        } else {
-            echo "Error saving payment details: " . mysqli_error($con);
-        }
-
+        mysqli_stmt_execute($stmtSavePayment);
         mysqli_stmt_close($stmtSavePayment);
     } else {
-        echo "Error preparing payment details statement: " . mysqli_error($con);
+        die("Error preparing payment details statement: " . mysqli_error($con));
     }
 
-    mysqli_data_seek($result, 0);
-
-    $productIDs = array();
-    $quantities = array();
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $productId = $row['ItemID'];
-        $Quantity = $row['Quantity'];
+    // Update items
+    foreach ($productIDs as $index => $productId) {
+        $quantity = $quantities[$index];
 
         $updateItemsQuery = "UPDATE items SET Quantity = Quantity - ?, Solds = Solds + ? WHERE ItemID = ?";
         $stmtUpdateItems = mysqli_prepare($con, $updateItemsQuery);
 
         if ($stmtUpdateItems) {
-            mysqli_stmt_bind_param($stmtUpdateItems, "iii", $Quantity, $Quantity, $productId);
+            mysqli_stmt_bind_param($stmtUpdateItems, "iii", $quantity, $quantity, $productId);
             mysqli_stmt_execute($stmtUpdateItems);
             mysqli_stmt_close($stmtUpdateItems);
-
-            $productIDs[] = $productId;
-            $quantities[] = $Quantity;
         } else {
-            echo "Error updating quantity and sold count: " . mysqli_error($con);
+            die("Error updating item quantities: " . mysqli_error($con));
         }
-    }
-
-    $productIDsString = implode(',', $productIDs);
-    $quantitiesString = implode(',', $quantities);
-
-    $updateOrderQuery = "UPDATE orders SET product_id = ?, order_quantity = ? WHERE order_id = ?";
-    $stmtUpdateOrder = mysqli_prepare($con, $updateOrderQuery);
-
-    if ($stmtUpdateOrder) {
-        mysqli_stmt_bind_param($stmtUpdateOrder, "ssi", $productIDsString, $quantitiesString, $orderId);
-        mysqli_stmt_execute($stmtUpdateOrder);
-        mysqli_stmt_close($stmtUpdateOrder);
-    } else {
-        echo "Error updating order with product IDs and quantities: " . mysqli_error($con);
-    }
-
-    $productIDsString = implode(',', $productIDs);
-    $updateOrderQuery = "UPDATE orders SET product_id = ? WHERE order_id = ?";
-    $stmtUpdateOrder = mysqli_prepare($con, $updateOrderQuery);
-
-    if ($stmtUpdateOrder) {
-        mysqli_stmt_bind_param($stmtUpdateOrder, "si", $productIDsString, $orderId);
-        mysqli_stmt_execute($stmtUpdateOrder);
-        mysqli_stmt_close($stmtUpdateOrder);
-    } else {
-        echo "Error updating order with product IDs: " . mysqli_error($con);
     }
 
     header('Location: orderdone.php');
@@ -163,7 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Payment</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/payment.css">
-
 </head>
 
 <body>
@@ -198,13 +134,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         ?>
                     </select>
                 </div>
-                <div class="payment-button"> <button class="buybtn" type="submit">Submit Payment</button> </div>
+                <div class="payment-button">
+                    <button class="buybtn" type="submit">Submit Payment</button>
+                </div>
             </form>
         </div>
     </div>
-    <?php
-    include("footer.html");
-    ?>
+    <?php include("footer.html"); ?>
 </body>
 
 </html>

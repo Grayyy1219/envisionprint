@@ -66,6 +66,18 @@ while ($categoryRow = mysqli_fetch_assoc($categoryResult)) {
                                 </div>
                             </div>
                         </div>
+                        <div class="formsection">
+                            <div class="formsectioninside">
+                                <div class="sectioninsidediv">
+                                    <span>Customizable:</span>
+                                    <select name="customizable" id="" style="height: 30px;width: 300px;">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                    <p class="tooltiptext">Enter the product quantity</p>
+                                </div>
+                            </div>
+                        </div>
                         <input type="submit" class="submit-btn" value="Add">
                     </form>
                 </div>

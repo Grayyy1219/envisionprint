@@ -20,6 +20,7 @@
     $Rating = $row["rating"];
     $rating_count = $row["rating_count"];
     $Description = $row["Description"];
+    $customizable = $row["customizable"];
     $shortenedTitle = (strlen($ItemName) > 100) ? substr($ItemName, 0, 100) . '...' : $ItemName;
     ?>
     <title><?= $ItemName ?></title>
@@ -48,6 +49,30 @@
         .star-rating input:checked~label {
             background: url('css/img/star-filled.png') no-repeat;
             background-size: contain;
+        }
+
+        input:disabled {
+            all: unset;
+            text-align: center;
+            width: 110px;
+            height: 35px;
+
+            border-radius: 3px;
+            background-color: #757373;
+            color: #fff;
+            cursor: not-allowed;
+        }
+
+        label.btn-upload-img.addtocart {
+            margin: 0 5px;
+            padding: 10px 0;
+            border: 1px solid var(--primary);
+            font-size: 12px;
+            transition: all 0.2s ease-in;
+        }
+
+        .btn-upload-img input {
+            display: none;
         }
     </style>
 </head>
@@ -103,7 +128,16 @@
                         </div>
 
                         <div class='cartbtn'>
-                            <div class='addtocart' onclick="submitForm('addToCart.php')"><input type='button' value='Add to Basket' style='all:unset'></div>
+                            <?php if ($customizable == 1) { ?>
+                                <label class="btn-upload-img addtocart">
+                                    Upload<input type="file" onchange="buttoneable()" id="img" name="img" accept="image/*">
+                                </label>
+                                <div class='' onclick="submitForm('addToCart.php')"><input type='button' class="addtocart" id="addtocartbtn" value='Add to Basket' disabled></div>
+                            <?php } else { ?>
+                                <div class='addtocart' onclick="submitForm('addToCart.php')"><input type='button' id="addtocartbtn" value='Add to Basket' style='all:unset'></div>
+                            <?php } ?>
+
+
                         </div>
                     </div>
 
@@ -121,6 +155,11 @@
                 document.getElementById("myForm").action = action;
                 document.getElementById("myForm").submit();
             <?php } ?>
+        }
+
+        function buttoneable() {
+            var button = document.getElementById('addtocartbtn');
+            button.disabled = false;
         }
     </script>
     <?php include("footer.html"); ?>

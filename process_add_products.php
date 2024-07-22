@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = mysqli_real_escape_string($con, $_POST["description"]);
     $price = isset($_POST["price"]) ? $_POST["price"] : null;
     $quantity = $_POST["quantity"];
+    $customizable = $_POST["customizable"];
 
     if (isset($_FILES['ItemImg']) && $_FILES['ItemImg']['size'] > 0) {
         $name = $_FILES['ItemImg']['name'];
@@ -22,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ItemImg = "default_image_path.jpg";
     }
 
-    $query = "INSERT INTO items (ItemName, Description, Category, ItemImg, Price, Quantity) 
-              VALUES ('$title', '$description', '$category', '$ItemImg', '$price', '$quantity')";
+    $query = "INSERT INTO items (ItemName, Description, Category, ItemImg, Price, Quantity, customizable) 
+              VALUES ('$title', '$description', '$category', '$ItemImg', '$price', '$quantity',$customizable)";
 
     if (mysqli_query($con, $query)) {
         echo '<script>alert("Product added successfully!");</script>';

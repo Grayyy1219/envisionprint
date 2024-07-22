@@ -8,10 +8,16 @@ $orderCountPerCategoryResult = $con->query("
     JOIN items ON FIND_IN_SET(items.ItemID, orders.product_id) > 0
     GROUP BY items.category
 ");
+
+if (!$orderCountPerCategoryResult) {
+    die("Error retrieving order count per category: " . mysqli_error($con));
+}
+
 $orderCountPerCategory = [];
 while ($row = $orderCountPerCategoryResult->fetch_assoc()) {
     $orderCountPerCategory[] = $row;
 }
+
 function formatStatus($status)
 {
     switch ($status) {
@@ -31,9 +37,15 @@ function formatStatus($status)
 }
 
 $totalOrdersResult = $con->query("SELECT COUNT(*) as total_orders FROM orders");
+if (!$totalOrdersResult) {
+    die("Error retrieving total orders: " . mysqli_error($con));
+}
 $totalOrders = $totalOrdersResult->fetch_assoc()['total_orders'];
 
 $totalRevenueResult = $con->query("SELECT SUM(total_amount) as total_revenue FROM orders");
+if (!$totalRevenueResult) {
+    die("Error retrieving total revenue: " . mysqli_error($con));
+}
 $totalRevenue = $totalRevenueResult->fetch_assoc()['total_revenue'];
 
 $orderStatusSummaryResult = $con->query("
@@ -45,9 +57,17 @@ $orderStatusSummaryResult = $con->query("
         SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) as return_rejected
     FROM orders
 ");
+
+if (!$orderStatusSummaryResult) {
+    die("Error retrieving order status summary: " . mysqli_error($con));
+}
+
 $orderStatusSummary = $orderStatusSummaryResult->fetch_assoc();
 
-$recentOrdersResult = $con->query("SELECT * FROM orders ORDER BY order_date DESC LIMIT 5");
+$recentOrdersResult = $con->query("SELECT * FROM orders ORDER BY order_date DESC LIMIT 10");
+if (!$recentOrdersResult) {
+    die("Error retrieving recent orders: " . mysqli_error($con));
+}
 
 ?>
 
@@ -85,7 +105,6 @@ $recentOrdersResult = $con->query("SELECT * FROM orders ORDER BY order_date DESC
         gap: 10px;
     }
 </style>
-
 
 <div class="row">
     <div class="col-lg-12">
@@ -182,13 +201,15 @@ $recentOrdersResult = $con->query("SELECT * FROM orders ORDER BY order_date DESC
 
                             $productIds = explode(',', $row['product_id']);
                             $quantities = explode(',', $row['order_quantity']);
+                            $uploads = explode(',', $row['upload']);
                             $products = [];
 
                             foreach ($productIds as $index => $productId) {
+                                $productId = (int) $productId; // Ensure product ID is an integer
                                 $productResult = $con->query("SELECT * FROM items WHERE ItemID = {$productId}");
                                 if ($productResult->num_rows > 0) {
                                     $product = $productResult->fetch_assoc();
-                                    $products[] = "{$product['ItemName']} (Qty: {$quantities[$index]})";
+                                    $products[] = "{$product['ItemName']} (Qty: {$quantities[$index]}, Upload: {$uploads[$index]})";
                                 }
                             }
                             echo "<td>" . implode('<br> ', $products) . "</td>";
