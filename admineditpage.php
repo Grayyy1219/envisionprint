@@ -325,7 +325,6 @@
             alert("You Canceled.");
             return false;
         } else {
-            // Code to execute if the password is incorrect
             alert("Incorrect password.");
             return false;
         }
@@ -334,11 +333,11 @@
     function checkAdminPassword() {
         var enteredPassword = prompt("Enter Admin Password:");
         if (enteredPassword === "<?php echo "$hashedadminpassword" ?>") {
-            return true; // Password is correct
+            return true;
         } else if (enteredPassword === null) {
-            return "canceled"; // User canceled the prompt
+            return "canceled"; 
         } else {
-            return false; // Incorrect password
+            return false;
         }
     }
 </script>
