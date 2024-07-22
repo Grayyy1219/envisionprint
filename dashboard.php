@@ -21,12 +21,16 @@ while ($row = $orderCountPerCategoryResult->fetch_assoc()) {
 function formatStatus($status)
 {
     switch ($status) {
+        case -2:
+            return "Canceled";
+        case -1:
+            return "Processing";
         case 0:
-            return "OTW";
+            return "Placed";
         case 1:
             return "Received";
         case 2:
-            return "Req Return";
+            return "Pending Return";
         case 3:
             return "Return Approved";
         case 4:
@@ -50,11 +54,13 @@ $totalRevenue = $totalRevenueResult->fetch_assoc()['total_revenue'];
 
 $orderStatusSummaryResult = $con->query("
     SELECT 
-        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as otw,
-        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as received,
-        SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) as req_return,
-        SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) as return_approved,
-        SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) as return_rejected
+        SUM(CASE WHEN status = -2 THEN 1 ELSE 0 END) as Canceled,
+        SUM(CASE WHEN status = -1 THEN 1 ELSE 0 END) as Processing,
+        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as Placed,
+        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as Received,
+        SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) as Pending_Return,
+        SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) as Return_Approved,
+        SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) as Return_Rejected
     FROM orders
 ");
 
@@ -158,11 +164,13 @@ if (!$recentOrdersResult) {
                                 <h3 class="panel-title">Order Status</h3>
                             </div>
                             <div class="panel-body">
-                                <p>OTW: <?php echo $orderStatusSummary['otw']; ?></p>
-                                <p>Received: <?php echo $orderStatusSummary['received']; ?></p>
-                                <p>Req Return: <?php echo $orderStatusSummary['req_return']; ?></p>
-                                <p>Return Approved: <?php echo $orderStatusSummary['return_approved']; ?></p>
-                                <p>Return Rejected: <?php echo $orderStatusSummary['return_rejected']; ?></p>
+                                <p>Canceled: <?php echo $orderStatusSummary['Canceled']; ?></p>
+                                <p>Processing: <?php echo $orderStatusSummary['Processing']; ?></p>
+                                <p>Placed: <?php echo $orderStatusSummary['Placed']; ?></p>
+                                <p>Received: <?php echo $orderStatusSummary['Received']; ?></p>
+                                <p>Pending Return: <?php echo $orderStatusSummary['Pending_Return']; ?></p>
+                                <p>Return Approved: <?php echo $orderStatusSummary['Return_Approved']; ?></p>
+                                <p>Return Rejected: <?php echo $orderStatusSummary['Return_Rejected']; ?></p>
                             </div>
                         </div>
                     </div>

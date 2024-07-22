@@ -135,8 +135,14 @@
 
     function toverify() {
         alert("Please Log in into a Verified account first!");
+        openPopup('VerificationPopup');
+    }
+
+    function tologin() {
+        alert("Please Log in into a Verified account first!");
         openPopup('LoginPopup');
     }
+
 
     function openPopup(popupId) {
         var openElements = document.querySelectorAll('.popup, .popup-overlay');

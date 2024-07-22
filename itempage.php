@@ -149,6 +149,8 @@
         function submitForm(action) {
             <?php
             if ($username == 0) {
+                echo "tologin();";
+            } elseif ($verification != 1) {
                 echo "toverify();";
             } else {
             ?>

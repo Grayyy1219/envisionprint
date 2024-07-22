@@ -65,7 +65,7 @@ include("query.php");
                             <th>Details</th>
                             <th style="width: 100px;">Order Date</th>
                             <th>Rating</th>
-                            <th>Action</th>
+                            <th>Status</th>
                         </tr>
                         <tbody>
                             <?php
