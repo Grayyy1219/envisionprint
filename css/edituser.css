@@ -3,7 +3,6 @@
 }
 .wedit {
   display: flex;
-  border: 1px solid #000000;
   min-height: 344px;
   /* margin-top: 50px; */
   align-items: center;
