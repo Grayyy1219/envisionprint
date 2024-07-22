@@ -70,7 +70,7 @@ header {
   margin: 50px 0 0 200px;
   width: 86%;
   flex-direction: column;
-  padding: 50px;
+  padding: 30px;
   scrollbar-width: thin;
   scrollbar-color: #888 #ccc;
 }

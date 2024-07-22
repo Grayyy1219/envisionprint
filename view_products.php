@@ -59,8 +59,8 @@ $run_pro = mysqli_query($con, $get_pro);
                                 <th>Image</th>
                                 <th>Price</th>
                                 <th>Sold</th>
-                                <th>Delete</th>
                                 <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,8 +80,8 @@ $run_pro = mysqli_query($con, $get_pro);
                                     <td><img src="<?php echo $pro_image; ?>" width="60" height="60"></td>
                                     <td>₱ <?php echo $pro_price; ?></td>
                                     <td><?php echo $Solds; ?></td>
-                                    <td><a href="admin.php?delete_product&bookId=<?php echo $pro_id; ?>" style=" color: #337ab7; text-decoration: none; ">Delete</a></td>
-                                    <td><a href="admin.php?edit_product&bookId=<?php echo $pro_id; ?>" style=" color: #337ab7; text-decoration: none; ">Edit</a></td>
+                                    <td><a href="admin.php?edit_product&ItemID=<?php echo $pro_id; ?>" style="color: #337ab7; text-decoration: none;">Edit</a></td>
+                                    <td><a href="admin.php?delete_product&ItemID=<?php echo $pro_id; ?>" style="color: #337ab7; text-decoration: none;" onclick="return confirmDelete();">Delete</a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -108,3 +108,8 @@ $run_pro = mysqli_query($con, $get_pro);
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this product?');
+    }
+</script>

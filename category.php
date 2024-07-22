@@ -37,13 +37,6 @@
     ?>
     <div class="pagehead">
         <div class="categotytitle"><?= $category ?></div>
-        <div class="filter">
-            <select name="" id="">
-                <option value="">None</option>
-                <option value="">Price Low to High</option>
-                <option value="">Price High to Low</option>
-            </select>
-        </div>
     </div>
 
     <form action="" id="myForm" method="post" enctype="multipart/form-data">

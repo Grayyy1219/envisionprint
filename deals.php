@@ -185,7 +185,6 @@ if ($current_page < 1) {
                     ItemName: itemName,
                     Price: originalPrice,
                     Quantity: quantity,
-                    // Assuming other properties (like rating and image) are not dynamically changed
                 };
 
                 displayItemPreview(newItem);

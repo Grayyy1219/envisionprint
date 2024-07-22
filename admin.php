@@ -47,8 +47,6 @@
 
             <a href="admin.php?return">Returns</a>
 
-
-
             <!-- <a href="#" class="toggle" data-target="#reports">Reports</a>
             <div id="reports" class="collapse nested-menu">
                 <a href="admin.php?reports">View Reports</a>
@@ -77,19 +75,19 @@
             include("delete_product.php");
         }
         if (isset($_GET['edit_product'])) {
-            include("edititem.php");
+            include("edit_product.php");
         }
         if (isset($_GET['insert_products'])) {
-            include("add_item_form.php");
+            include("insert_products.php");
         }
         if (isset($_GET['view_category'])) {
-            include("editgenre.php");
+            include("view_category.php");
         }
         if (isset($_GET['edit_category'])) {
-            include("editgenre2.php");
+            include("edit_category.php");
         }
         if (isset($_GET['insert_category'])) {
-            include("addgenre3.php");
+            include("Insert_category.php");
         }
         if (isset($_GET['view_user'])) {
             include("blockuser.php");
