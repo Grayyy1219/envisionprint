@@ -2,7 +2,16 @@
 include("connect.php");
 include("query.php");
 
-// Function to format the order status
+$orderCountPerCategoryResult = $con->query("
+    SELECT items.category, COUNT(orders.order_id) as order_count
+    FROM orders
+    JOIN items ON FIND_IN_SET(items.ItemID, orders.product_id) > 0
+    GROUP BY items.category
+");
+$orderCountPerCategory = [];
+while ($row = $orderCountPerCategoryResult->fetch_assoc()) {
+    $orderCountPerCategory[] = $row;
+}
 function formatStatus($status)
 {
     switch ($status) {
@@ -42,133 +51,158 @@ $recentOrdersResult = $con->query("SELECT * FROM orders ORDER BY order_date DESC
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .row2 {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        width: 200px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-        .dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+    table,
+    th,
+    td {
+        border: 1px solid #ddd;
+    }
 
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            width: 200px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+        font-size: 12px;
+    }
 
-        .recent-orders,
-        .flash-deals {
-            margin-top: 20px;
-        }
+    .panel-body {
+        padding: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">E-commerce Dashboard</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Total Orders</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><?php echo $totalOrders; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Order Count per Category</h3>
+                            </div>
+                            <div class="panel-body">
+                                <?php foreach ($orderCountPerCategory as $categoryCount) : ?>
+                                    <p><?php echo $categoryCount['category']; ?>: <?php echo $categoryCount['order_count']; ?></p>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Total Revenue</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>₱<?php echo number_format($totalRevenue, 2); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Order Status</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>OTW: <?php echo $orderStatusSummary['otw']; ?></p>
+                                <p>Received: <?php echo $orderStatusSummary['received']; ?></p>
+                                <p>Req Return: <?php echo $orderStatusSummary['req_return']; ?></p>
+                                <p>Return Approved: <?php echo $orderStatusSummary['return_approved']; ?></p>
+                                <p>Return Rejected: <?php echo $orderStatusSummary['return_rejected']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-    </style>
-</head>
-
-<body>
-    <h1>E-commerce Dashboard</h1>
-    <div class="dashboard">
-        <div class="card">
-            <h2>Total Orders</h2>
-            <p><?php echo $totalOrders; ?></p>
-        </div>
-        <div class="card">
-            <h2>Total Revenue</h2>
-            <p>₱<?php echo number_format($totalRevenue, 2); ?></p>
-        </div>
-        <div class="card">
-            <h2>Order Status</h2>
-            <p>OTW: <?php echo $orderStatusSummary['otw']; ?></p>
-            <p>Received: <?php echo $orderStatusSummary['received']; ?></p>
-            <p>Req Return: <?php echo $orderStatusSummary['req_return']; ?></p>
-            <p>Return Approved: <?php echo $orderStatusSummary['return_approved']; ?></p>
-            <p>Return Rejected: <?php echo $orderStatusSummary['return_rejected']; ?></p>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="recent-orders">
-        <h2>Recent Orders</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer ID</th>
-                    <th>Products</th>
-                    <th>Order Date</th>
-                    <th>Total Amount</th>
-                    <th>Status</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                while ($row = $recentOrdersResult->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>{$row['order_id']}</td>";
-                    echo "<td>{$row['customer_id']}</td>";
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Recent Orders</h3>
+            </div>
+            <div class="panel-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer ID</th>
+                            <th>Products</th>
+                            <th>Order Date</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($row = $recentOrdersResult->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>{$row['order_id']}</td>";
+                            echo "<td>{$row['customer_id']}</td>";
 
-                    // Fetch products and quantities
-                    $productIds = explode(',', $row['product_id']);
-                    $quantities = explode(',', $row['order_quantity']);
-                    $products = [];
+                            $productIds = explode(',', $row['product_id']);
+                            $quantities = explode(',', $row['order_quantity']);
+                            $products = [];
 
-                    foreach ($productIds as $index => $productId) {
-                        $productResult = $con->query("SELECT * FROM items WHERE ItemID = {$productId}");
-                        if ($productResult->num_rows > 0) {
-                            $product = $productResult->fetch_assoc();
-                            $products[] = "{$product['ItemName']} (Qty: {$quantities[$index]})";
+                            foreach ($productIds as $index => $productId) {
+                                $productResult = $con->query("SELECT * FROM items WHERE ItemID = {$productId}");
+                                if ($productResult->num_rows > 0) {
+                                    $product = $productResult->fetch_assoc();
+                                    $products[] = "{$product['ItemName']} (Qty: {$quantities[$index]})";
+                                }
+                            }
+                            echo "<td>" . implode('<br> ', $products) . "</td>";
+                            $formattedDate = date('F j, Y', strtotime($row['order_date']));
+                            echo "<td>{$formattedDate}</td>";
+                            echo "<td>₱" . number_format($row['total_amount'], 2) . "</td>";
+                            echo "<td>" . formatStatus($row['status']) . "</td>";
+                            echo "<td>{$row['rating']}</td>";
+                            echo "</tr>";
                         }
-                    }
-                    echo "<td>" . implode('<br> ', $products) . "</td>";
-                    $formattedDate = date('F j, Y', strtotime($row['order_date']));
-                    echo "<td>{$formattedDate}</td>";
-                    echo "<td>₱" . number_format($row['total_amount'], 2) . "</td>";
-                    echo "<td>" . formatStatus($row['status']) . "</td>";
-                    echo "<td>{$row['rating']}</td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-
-    
-
-
-
-</body>
-
-</html>
-
-<?php
-$con->close();
-?>
+</div>

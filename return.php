@@ -35,6 +35,7 @@ $run_pro = mysqli_query($con, $get_pro);
                                 $status = $row_pro['status'];
                                 $product_ids  = $row_pro['product_id'];
                                 $customer_id = $row_pro['customer_id'];
+                                $reason = $row_pro['Reason'];
 
                                 $getuser = mysqli_query($con, "SELECT FName FROM users WHERE UserID  = $customer_id");
                                 $CustomerName = mysqli_num_rows($getuser) > 0 ? mysqli_fetch_assoc($getuser)['FName'] : 0;
@@ -77,7 +78,7 @@ $run_pro = mysqli_query($con, $get_pro);
                             <div class='img'><img src='$ItemImg' alt='' width='70px'></div>
                             <div class='info'>
                                 <h5>$ItemName</h5>
-                                <p>Reason: Damage or defective</p>
+                                <p>Reason: $reason</p>
                             </div>
                         </div>
                         <div class='infos2'>

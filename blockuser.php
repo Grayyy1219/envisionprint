@@ -1,25 +1,19 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Account Management</title>
-    <link rel="stylesheet" href="css/blockuser.css">
-    <link rel="icon" href="Image/logo.ico">
-</head>
 <?php
-include("connect.php");
-include("query.php");
-
 $query = "SELECT UserID, FName, username, block FROM users WHERE admin != 1";
-
 $result = mysqli_query($con, $query);
 ?>
 
 <body>
+    <?php
+    include("popups.php");
+    ?>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">User Account Management</h3>
+                    <button style="float: inline-end;" onclick="openPopup('SignupPopup')">Add</button>
+                    <h3 class="panel-title">User Account Management </h3>
+
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -30,8 +24,8 @@ $result = mysqli_query($con, $query);
                                     <th>First Name</th>
                                     <th>Username</th>
                                     <th>Status</th>
-                                    <th>Action</th>
-                                    <th>Select</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,8 +48,8 @@ $result = mysqli_query($con, $query);
                                             <?php endif; ?>
                                         </td>
                                 <?php
-                                        echo "<td class='td'><a href='admin2.php?edit_category&GenreID=$userId' style='color: #337ab7; text-decoration: none; margin-right: 10px;'>Edit</a><a type='button' onclick='deleteGenre($userId)' style='color: #337ab7; text-decoration: none; '>Delete</a></td>";
-                                        echo "<td class='td'><input type='checkbox' class='delete-checkbox' data-userid='$userId'></td>";
+                                        echo "<td class='td'><a href='admin.php?edit_user&UserID=$userId' style='color: #337ab7; text-decoration: none; margin-right: 10px;'>Edit</a></td>";
+                                        echo "<td class='td'><a href='admin.php?delete_user&UserID=$userId' onclick='return confirmDelete()' style='color: #337ab7; text-decoration: none; '>Delete</a></td>";
                                         echo "</tr>";
                                     }
                                 } else {
@@ -65,10 +59,10 @@ $result = mysqli_query($con, $query);
                             </tbody>
                         </table>
                         <div id="delete">
-                            <a href="signup.php"><button class="Signup">Add</button></a>
-                            <button class="delete" onclick="deleteSelectedRows()">Delete</button>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -92,36 +86,8 @@ $result = mysqli_query($con, $query);
             xhttp.send();
         }
 
-        function deleteSelectedRows() {
-            var selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
-            var selectedUserIds = Array.from(selectedCheckboxes).map(function(checkbox) {
-                return checkbox.getAttribute('data-userid');
-            });
-
-            if (selectedUserIds.length > 0) {
-                var confirmed = confirm("Are you sure you want to delete the selected users?");
-                if (confirmed) {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {
-                                location.reload();
-                            } else {
-                                // Handle errors here if needed
-                                console.error('Error:', this.status, this.statusText);
-                            }
-                        }
-                    };
-
-                    var requestData = "user_ids=" + encodeURIComponent(selectedUserIds.join(','));
-
-                    xhttp.open("POST", "delete_users.php");
-                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhttp.send(requestData);
-                }
-            } else {
-                alert("Please select at least one user to delete.");
-            }
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this product?');
         }
     </script>
 </body>

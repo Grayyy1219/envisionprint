@@ -92,6 +92,12 @@
         if (isset($_GET['view_user'])) {
             include("blockuser.php");
         }
+        if (isset($_GET['edit_user'])) {
+            include("edit_user.php");
+        }
+        if (isset($_GET['delete_user'])) {
+            include("delete_user.php");
+        }
         if (isset($_GET['return'])) {
             include("return.php");
         }

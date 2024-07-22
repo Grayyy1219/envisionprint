@@ -68,7 +68,6 @@
     .colordiv {
         width: 70px;
         height: 40px;
-        /* margin: auto; */
         box-shadow: 2px 2px 5px #888;
         border-radius: 7px;
     }
@@ -79,11 +78,7 @@
         justify-content: center;
     }
 
-    .row {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
-    }
+
 
     .slide {
         width: calc(33.33% - 20px);
@@ -140,111 +135,111 @@
     }
 </style>
 
-<div class="divide">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Customer Page Management</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="GET" action="admin2.php">
-                        <input type="hidden" name="view_products" value="1">
-                    </form>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Item #</th>
-                                    <th>Page Item</th>
-                                    <th>Value</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $result = mysqli_query($con, "SELECT * FROM page;");
-                                if ($result) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        $itemId = $row['ItemID'];
-                                        $itemName = $row['Itemname'];
-                                        $itemValue = $row['value'];
 
-                                        if ($itemName === "Logo") {
-                                            $itemVisual = "<img src='$itemValue' width='70px' alt='Logo'>";
-                                        } elseif ($itemName === "Background Color") {
-                                            $itemVisual = "<div class='colordiv' style='background-color: $itemValue;'></div>";
-                                        } elseif ($itemName === "Text Color") {
-                                            $itemVisual = "<div class='colordiv' style='background-color: $itemValue;'></div>";
-                                        }
-
-                                        echo "<tr>";
-                                        echo "<td class='td'> $itemId </td>";
-                                        echo "<td class='td' style='min-width: 150px;'> $itemName </td>";
-                                        echo "<td class='td'> $itemVisual </td>";
-                                        echo "<td class='td'> <input type='button' name='submitpagetab' class='submit-btn' onclick='openModalpagetab$itemId($itemId)' value='Change'></td>";
-                                        echo "</tr>";
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='4'>Error: " . mysqli_error($con) . "</td></tr>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer Page Management</h3>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Slide Show Management</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="GET" action="admin2.php">
-                        <input type="hidden" name="view_products" value="1">
-                    </form>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Silde #</th>
-                                    <th>Slide Image</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $result = mysqli_query($con, "SELECT * FROM slideshow;");
-                                if ($result) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        $itemId = $row['SlideID'];
-                                        $itemName = $row['imagename'];
-                                        $itemValue = $row['imagelocation'];
-                                        $itemVisual = "<img class='slideimg' src='$itemValue'  alt='Logo'>";
+            <div class="panel-body">
+                <form method="GET" action="admin2.php">
+                    <input type="hidden" name="view_products" value="1">
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item #</th>
+                                <th>Page Item</th>
+                                <th>Value</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $result = mysqli_query($con, "SELECT * FROM page;");
+                            if ($result) {
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $itemId = $row['ItemID'];
+                                    $itemName = $row['Itemname'];
+                                    $itemValue = $row['value'];
 
-                                        echo "<tr>";
-                                        echo "<td class='td'> $itemId </td>";
-                                        echo "<td class='td'> $itemVisual </td>";
-                                        echo "<td class='td'> <input type='button' name='submitpagetab' class='submit-btn' onclick='openModal($itemId)' value='Change'></td>";
-                                        echo "</tr>";
+                                    if ($itemName === "Logo") {
+                                        $itemVisual = "<img src='$itemValue' width='70px' alt='Logo'>";
+                                    } elseif ($itemName === "Background Color") {
+                                        $itemVisual = "<div class='colordiv' style='background-color: $itemValue;'></div>";
+                                    } elseif ($itemName === "Text Color") {
+                                        $itemVisual = "<div class='colordiv' style='background-color: $itemValue;'></div>";
                                     }
-                                } else {
-                                    echo "<tr><td colspan='4'>Error: " . mysqli_error($con) . "</td></tr>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
 
+                                    echo "<tr>";
+                                    echo "<td class='td'> $itemId </td>";
+                                    echo "<td class='td' style='min-width: 150px;'> $itemName </td>";
+                                    echo "<td class='td'> $itemVisual </td>";
+                                    echo "<td class='td'> <input type='button' name='submitpagetab' class='submit-btn' onclick='openModalpagetab$itemId($itemId)' value='Change'></td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>Error: " . mysqli_error($con) . "</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Slide Show Management</h3>
+            </div>
+            <div class="panel-body">
+                <form method="GET" action="admin2.php">
+                    <input type="hidden" name="view_products" value="1">
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Silde #</th>
+                                <th>Slide Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $result = mysqli_query($con, "SELECT * FROM slideshow;");
+                            if ($result) {
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $itemId = $row['SlideID'];
+                                    $itemName = $row['imagename'];
+                                    $itemValue = $row['imagelocation'];
+                                    $itemVisual = "<img class='slideimg' src='$itemValue'  alt='Logo'>";
+
+                                    echo "<tr>";
+                                    echo "<td class='td'> $itemId </td>";
+                                    echo "<td class='td'> $itemVisual </td>";
+                                    echo "<td class='td'> <input type='button' name='submitpagetab' class='submit-btn' onclick='openModal($itemId)' value='Change'></td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>Error: " . mysqli_error($con) . "</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="Modallogo" class="modal">
     <div class="modal-content">

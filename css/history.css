@@ -36,26 +36,17 @@ th {
 
 .product {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  gap: 5px;
   font-size: 15px;
+  flex-direction: column;
+  padding: 10px;
 }
 
 section.center {
   min-height: 64vh;
 }
 
-.buybtn {
-  all: unset;
-  text-align: center;
-  width: 80px;
-  height: 26px;
-  border: solid 1px var(--secondary);
-  color: black;
-  border-radius: 3px;
-}
-
-.buybtn:hover {
+.ratebtn:hover {
   background-color: var(--primary);
   color: var(--btext);
 }
@@ -93,10 +84,92 @@ div#pagination-container_category {
 }
 .ratebtn {
   all: unset;
-  background-color: var(--primary);
   padding: 6px 7px;
   border-radius: 5px;
+  border: solid 1px var(--primary);
   font-size: 12px;
-  color: white;
+  color: var(--primary);
+}
 
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.status-step {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.status-completed {
+  color: #4caf50;
+}
+
+.status-current {
+  color: orange;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: gray;
+}
+
+.status-step::before {
+  content: "✓";
+  color: #4caf50;
+  margin-right: 5px;
+}
+
+.status-current::before {
+  content: "*";
+  color: orange;
+  margin-right: 5px;
+}
+
+.status-pending::before {
+  content: " ";
+  margin-right: 5px;
+}
+
+.staustd {
+  padding: 20px;
+}
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: url("img/star-empty.png") no-repeat;
+  background-size: contain;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  background: url("img/star-filled.png") no-repeat;
+  background-size: contain;
+}
+.product .item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Adjust spacing between items */
+}
+
+.product .item img {
+  margin-right: 10px; /* Space between image and name */
+}
+.items {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
