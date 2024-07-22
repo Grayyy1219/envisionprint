@@ -47,7 +47,7 @@
             </form>
         </div>
     </section>
-    <?php include("footer.php"); ?>
+    <?php include("footer.html"); ?>
     <script>
         function validateForm() {
             var newPassword = document.getElementById('newpass').value;

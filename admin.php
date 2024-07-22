@@ -34,6 +34,8 @@
 
             <a href="admin.php?deals">Deals</a>
 
+            <a href="admin.php?view_orders">Orders</a>
+
             <a href="#" class="toggle" data-target="#Categories">Categories</a>
             <div id="Categories" class="collapse nested-menu">
                 <a href="admin.php?insert_category">Insert Category</a>
@@ -97,6 +99,9 @@
         }
         if (isset($_GET['delete_user'])) {
             include("delete_user.php");
+        }
+        if (isset($_GET['view_orders'])) {
+            include("view_orders.php");
         }
         if (isset($_GET['return'])) {
             include("return.php");

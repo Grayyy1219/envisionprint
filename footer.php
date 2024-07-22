@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/global.css">
 <footer>
     <div class="companyname">
         <h1>Tiktok.com/@envisionprint1221</h1>

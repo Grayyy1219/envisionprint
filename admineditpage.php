@@ -143,7 +143,7 @@
                 <h3 class="panel-title">Customer Page Management</h3>
             </div>
             <div class="panel-body">
-                <form method="GET" action="admin2.php">
+                <form method="GET" action="admin.php">
                     <input type="hidden" name="view_products" value="1">
                 </form>
                 <div class="table-responsive">
@@ -199,7 +199,7 @@
                 <h3 class="panel-title">Slide Show Management</h3>
             </div>
             <div class="panel-body">
-                <form method="GET" action="admin2.php">
+                <form method="GET" action="admin.php">
                     <input type="hidden" name="view_products" value="1">
                 </form>
                 <div class="table-responsive">

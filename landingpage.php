@@ -52,7 +52,7 @@
     <section style="margin-bottom: 30px;">
         <?php include("trend.php"); ?>
     </section>
-    <?php include("footer.php"); ?>
+    <?php include("footer.html"); ?>
     <script src="config/slideshow.js"></script>
 </body>
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<footer>
+    <companyname>
+        <h1>Tiktok.com/@envisionprint1221</h1>
+    </companyname>
+    <flinks>
+        <link href="index.php">
+            <text>Home</text>
+            <!-- <text>Hello world</text> -->
+        </link>
+        <link href="">
+            <text>About</text>
+        </link>
+        <link href="">
+            <text>Contacts</text>
+        </link>
+        <link href="logout.php">
+            <text>Logout</text>
+        </link>
+    </flinks>
+    <fsocials>
+        <social>
+            <url>https://www.facebook.com</url>
+            <img src="css/img/facebook.png" alt="fb" width="10px"/>
+        </social>
+        <social>
+            <url>https://www.instagram.com/</url>
+            <img src="css/img/instagram.png" alt="insta" width="10px"/>
+        </social>
+        <social>
+            <url>https://www.tiktok.com/@envisionprint1221</url>
+            <img src="css/img/tik-tok.png" alt="tiktok" width="10px"/>
+        </social>
+    </fsocials>
+    <copyright>
+        <text>Copyright ©2024 All rights reserved | <b>EnVision Print</b></text>
+    </copyright>
+</footer>

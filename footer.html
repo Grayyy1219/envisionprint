@@ -1,0 +1,24 @@
+<footer id="output"></footer>
+<script>
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var xmlDoc = this.responseXML;
+      var xslStylesheet = new XMLHttpRequest();
+      xslStylesheet.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var xslDoc = this.responseXML;
+          var xsltProcessor = new XSLTProcessor();
+          xsltProcessor.importStylesheet(xslDoc);
+          var resultDocument = xsltProcessor.transformToDocument(xmlDoc);
+          document.getElementById("output").innerHTML =
+            new XMLSerializer().serializeToString(resultDocument);
+        }
+      };
+      xslStylesheet.open("GET", "footer.xsl", true);
+      xslStylesheet.send();
+    }
+  };
+  xhttp.open("GET", "footer.xml", true);
+  xhttp.send();
+</script>

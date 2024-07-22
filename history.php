@@ -18,7 +18,7 @@ include("query.php");
 <body>
     <?php include("header.php");
 
-    $items_per_page = 10;
+    $items_per_page = 4;
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($current_page - 1) * $items_per_page;
     $where_clause = '';
@@ -141,6 +141,11 @@ include("query.php");
                                     $returnbtn = "
                                     <div class='status-container'>
                                         <div class='status-text status-current'>Processing</div>
+                                    </div>";
+                                } elseif ($status == "-2") {
+                                    $returnbtn = "
+                                    <div class='status-container'>
+                                        <div class='status-text' style='color:red;'>Order Canceled</div>
                                     </div>";
                                 }
 

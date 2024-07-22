@@ -151,7 +151,7 @@ $totalCartValue = 0;
             document.getElementById('totalCartValue').textContent = '₱' + total.toFixed(2);
         }
     </script>
-    <?php include "footer.php"; ?>
+    <?php include "footer.html"; ?>
 </body>
 
 </html>

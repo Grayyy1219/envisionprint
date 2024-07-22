@@ -6,8 +6,20 @@ if (isset($_GET['status']) && isset($_GET['orderid'])) {
     $status = intval($_GET['status']);
     $order_id = intval($_GET['orderid']);
 
-    if ($status == 3 || $status == 4) {
-        // Prepare and execute the SQL statement to update order status
+    $statusMessages = [
+        -2 => "Order has been canceled.",
+        -1 => "Order is now being processed.",
+        0 => "Order is marked as To be Received.",
+        1 => "Order received and product quantities updated.",
+        2 => "Return request is pending.",
+        3 => "Return approved and product quantities updated.",
+        4 => "Return request rejected."
+    ];
+
+    $validStatuses = [-2, -1, 0, 1, 2, 3, 4];
+
+    if (in_array($status, $validStatuses)) {
+        // Update order status
         $sql = "UPDATE orders SET status = ? WHERE order_id = ?";
         $stmt = $con->prepare($sql);
         if ($stmt === false) {
@@ -26,7 +38,6 @@ if (isset($_GET['status']) && isset($_GET['orderid'])) {
         $stmt->close();
 
         if ($status == 3) {
-            // Prepare and execute the SQL statement to get product_id and order_quantity
             $sql = "SELECT product_id, order_quantity FROM orders WHERE order_id = ?";
             $stmt = $con->prepare($sql);
             if ($stmt === false) {
@@ -47,13 +58,12 @@ if (isset($_GET['status']) && isset($_GET['orderid'])) {
             $product_ids = explode(',', $row['product_id']);
             $order_quantities = explode(',', $row['order_quantity']);
 
-            // Ensure both arrays have the same length
             if (count($product_ids) !== count($order_quantities)) {
                 die('Mismatch between product IDs and quantities.');
             }
 
-            for ($i = 0; $i < count($product_ids); $i++) {
-                $product_id = intval($product_ids[$i]);
+            foreach ($product_ids as $i => $product_id) {
+                $product_id = intval($product_id);
                 $order_quantity = intval($order_quantities[$i]);
 
                 $sql = "UPDATE items SET Quantity = Quantity + ? WHERE ItemID = ?";
@@ -74,25 +84,24 @@ if (isset($_GET['status']) && isset($_GET['orderid'])) {
             $result->free();
         }
 
-        $successMessage = ($status == 3) ? "Request Approved and product quantities updated." : "Request Canceled.";
+        $successMessage = $statusMessages[$status];
         echo "<script>
-            alert('$successMessage');
-            window.location.href = 'admin.php?return';
-          </script>";
+        alert('$successMessage');
+        backref();
+      </script>";
     } else {
         $errorMessage = "Invalid status value.";
         echo "<script>
             alert('$errorMessage');
-            window.location.href = 'admin.php?return';
+            window.history.back();
           </script>";
     }
 } else {
     $noUserIdMessage = "Status or Order ID not provided.";
     echo "<script>
-            alert('$noUserIdMessage');
-            window.location.href = 'admin.php?return';
-          </script>";
+        alert('$noUserIdMessage');
+        window.history.back();
+      </script>";
 }
 
-// Close connection
 $con->close();

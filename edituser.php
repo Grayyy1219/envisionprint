@@ -89,7 +89,7 @@
             </form>
         </div>
     </section>
-    <?php include("footer.php"); ?>
+    <?php include("footer.html"); ?>
     <script>
         document.getElementById('img').addEventListener('change', function(event) {
             const fileInput = event.target;
