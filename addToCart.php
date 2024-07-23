@@ -57,6 +57,8 @@
             $upload = "upload/upload/$name";
             move_uploaded_file($tmp_name, $upload);
         }
+    } else {
+        $upload = '';
     }
 
     $productResult = mysqli_query($con, "SELECT * FROM items WHERE ItemName = '$productName' LIMIT 1");

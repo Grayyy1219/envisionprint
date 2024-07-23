@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 12:52 AM
+-- Generation Time: Jul 23, 2024 at 02:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,6 +39,13 @@ CREATE TABLE `cart` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `upload` varchar(2000) DEFAULT ' '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `customer_id`, `ItemID`, `product_name`, `quantity`, `timestamp`, `upload`) VALUES
+(229, 14, 44, '', 2, '2024-07-22 23:00:53', '');
 
 -- --------------------------------------------------------
 
@@ -116,24 +123,22 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`ItemID`, `ItemName`, `Description`, `Category`, `ItemImg`, `Price`, `Solds`, `Quantity`, `rating`, `rating_count`, `onsale`, `oldprice`, `customizable`) VALUES
-(1, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI  Solo Photocards  With Backprint  9pcs.jpeg', 159.00, 49, 558, 2.38, 25, 1, 200.00, 0),
-(42, 'PUREGOLD x BINI | With Backprint | 9pcs | Matte Coat Back to Back', 'Elevate your style with the exclusive PUREGOLD x BINI collection! This unique set includes 9 pieces featuring a trendy backprint design. Each item is crafted with a high-quality matte coat finish, offering a sleek and modern look that\'s perfect for any occasion. The back-to-back design ensures a striking appearance from every angle, making this collection a must-have for fashion enthusiasts.', 'Photocards', 'upload\\item\\PUREGOLD x BINI.jpeg', 89.00, 69, 698, 2.625, 24, 0, 0.00, 0),
-(43, 'BINI | BINI WAND | Fanmade Photocards | With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI WAND.jpeg', 84.00, 62, 309, 3.31818, 22, 0, 0.00, 0),
+(1, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI  Solo Photocards  With Backprint  9pcs.jpeg', 33.00, 51, 556, 2.38, 25, 1, 159.00, 0),
+(42, 'PUREGOLD x BINI | With Backprint | 9pcs | Matte Coat Back to Back', 'Elevate your style with the exclusive PUREGOLD x BINI collection! This unique set includes 9 pieces featuring a trendy backprint design. Each item is crafted with a high-quality matte coat finish, offering a sleek and modern look that\'s perfect for any occasion. The back-to-back design ensures a striking appearance from every angle, making this collection a must-have for fashion enthusiasts.', 'Photocards', 'upload\\item\\PUREGOLD x BINI.jpeg', 89.00, 70, 697, 2.625, 24, 0, 0.00, 0),
+(43, 'BINI | BINI WAND | Fanmade Photocards | With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI WAND.jpeg', 84.00, 64, 307, 3.31818, 22, 0, 0.00, 0),
 (44, 'BINI | BiniWockeez Photocards | With Back Print | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI BiniWockeez Photocards With Back Print 9pcs.jpeg', 50.00, 40, 404, 3.96667, 30, 1, 89.00, 0),
 (45, 'BINI JolliBINI With Backprint 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI JolliBINI With Backprint  9pcs.jpeg', 99.00, 24, 436, 4.3913, 23, 0, 0.00, 0),
 (46, 'BINI Karera Fanmade Photocards With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI Karera Fanmade Photocards With Backprint.jpeg', 150.00, 5, 409, 4.33333, 3, 0, 0.00, 0),
 (47, 'BINIVERSE Back-to-Back With Backprint', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINIVERSE Back-to-Back With Backprint.jpeg', 299.00, 0, 419, 0, 0, 0, 0.00, 0),
-(48, 'BINI Cherry on Top With Backprint 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI Cherry on Top With Backprint 9pcs.jpeg', 150.00, 7, 481, 4.33333, 3, 1, 199.00, 0),
+(48, 'BINI Cherry on Top With Backprint 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\item\\BINI Cherry on Top With Backprint 9pcs.jpeg', 150.00, 8, 480, 4.33333, 3, 1, 199.00, 0),
 (49, 'BINI | Solo Photocard | With Backprint | 9pcs', 'sdsahdsha dsadsadhsad', 'Photocards', 'upload\\category\\bini_fanmade_card.png', 89.00, 0, 423, 0, 0, 1, 102.00, 0),
-(50, 'ENHYPEN BOYFRIEND POLA SET REPOST', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\ENHYPEN BOYFRIEND POLA SET REPOST.jpg', 50.00, 9, 496, 4.16667, 6, 1, 75.00, 0),
-(51, 'BINI FANMADE MINI PHOTOSTRIPS BY BESTIE PRINTS', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\BINI FANMADE MINI PHOTOSTRIPS BY BESTIE PRINTS.jpg', 33.00, 3, 410, 4.33333, 3, 0, 0.00, 0),
-(52, '2x6 customized photostrip  filmstrip', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\2x6 customized photostrip  filmstrip.jpg', 23.00, 7, 527, 4.33333, 3, 0, 0.00, 0),
-(53, '10 pcs Instax Inspired Photo Print', 'sdsahdsha dsadsadhsad', 'Insta-inspired', 'upload\\item\\10 pcs Instax Inspired Photo Print.jpg', 50.00, 5, 418, 0, 0, 0, 0.00, 1),
+(50, 'ENHYPEN BOYFRIEND POLA SET REPOST', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\ENHYPEN BOYFRIEND POLA SET REPOST.jpg', 50.00, 10, 495, 4.16667, 6, 1, 75.00, 1),
+(51, 'BINI FANMADE MINI PHOTOSTRIPS BY BESTIE PRINTS', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\BINI FANMADE MINI PHOTOSTRIPS BY BESTIE PRINTS.jpg', 33.00, 3, 410, 4.33333, 3, 0, 0.00, 1),
+(52, '2x6 customized photostrip  filmstrip', 'sdsahdsha dsadsadhsad', 'Photostrips', 'upload\\item\\2x6 customized photostrip  filmstrip.jpg', 23.00, 7, 527, 4.33333, 3, 0, 0.00, 1),
+(53, '10 pcs Instax Inspired Photo Print', 'sdsahdsha dsadsadhsad', 'Insta-inspired', 'upload\\item\\10 pcs Instax Inspired Photo Print.jpg', 50.00, 8, 415, 4, 1, 0, 0.00, 1),
 (54, 'Cartoon Cute Style keychain backpack pendant accessories McDonald', 'sdsahdsha dsadsadhsad', 'Keychain', 'upload/1721663005_Cartoon Cute Style keychain backpack pendant accessories McDonald.png', 16.00, 3, 422, 4.33333, 3, 0, 0.00, 0),
 (55, 'Cartoon Space Rabbit Keychain Cute Space Astronaut Couple Chain', 'sdsahdsha dsadsadhsad', 'Keychain', 'upload\\item\\Cartoon Space Rabbit Keychain Cute Space Astronaut Couple Chain.webp', 87.00, 15, 413, 3.26667, 15, 0, 0.00, 0),
-(56, 'Spotify Keychain', 'Carry your favorite tunes with you wherever you go with the Spotify Keychain. This stylish and functional accessory lets you showcase your love for music in a unique way. Featuring a sleek design with the iconic Spotify logo, this keychain is perfect for music lovers and Spotify enthusiasts alike.', 'Keychain', 'upload\\item\\Spotify Keychain.jpeg', 399.00, 48, 361, 3.375, 8, 1, 400.00, 1),
-(78, 'test', 'sss', 'Sample', 'upload/item/449760235_401341559067552_2862476995722678376_n.png', 1.00, 2, 0, 4, 1, 0, 0.00, 0),
-(80, 'test', 'dasd', 'Sample', 'upload/item/449760235_401341559067552_2862476995722678376_n.png', 1.00, 0, 2, 0, 0, 0, 0.00, 1);
+(56, 'Spotify Keychain', 'Carry your favorite tunes with you wherever you go with the Spotify Keychain. This stylish and functional accessory lets you showcase your love for music in a unique way. Featuring a sleek design with the iconic Spotify logo, this keychain is perfect for music lovers and Spotify enthusiasts alike.', 'Keychain', 'upload\\item\\Spotify Keychain.jpeg', 259.00, 49, 360, 3.375, 8, 1, 399.00, 1);
 
 -- --------------------------------------------------------
 
@@ -160,20 +165,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `product_id`, `order_date`, `order_quantity`, `total_amount`, `status`, `rating`, `Reason`, `upload`) VALUES
-(6454459, 3, '44,43', '2024-07-20 19:41:43', '10,1', 1084.00, 4, 0, '', NULL),
-(6454460, 3, '56,42,46', '2024-07-20 19:42:06', '1,9,2', 1400.00, 3, 0, '', NULL),
-(6454461, 3, '1,45,48,50,52', '2024-07-20 19:42:23', '9,1,4,5,7', 2411.00, 2, 0, '', NULL),
-(6454462, 3, '43', '2024-07-20 19:53:48', '3', 252.00, 1, 0, 'Received wrong item', NULL),
-(6454463, 3, '1,42', '2024-07-20 19:55:56', '5,8', 1107.00, 0, 0, 'Other', NULL),
-(6454465, 3, '50', '2024-07-22 18:06:58', '1', 50.00, -1, 0, '', NULL),
-(6454466, 3, '78', '2024-07-22 19:27:43', '1', 1.00, -2, 0, 'Changed mind', NULL),
-(6454467, 13, '43', '2024-07-22 20:30:15', '1', 84.00, 0, 0, '', NULL),
-(6454473, 3, '56', '2024-07-22 22:19:04', '1', 399.00, -1, 0, '', NULL),
-(6454474, 3, '56,53', '2024-07-22 22:20:03', '1,1', 449.00, -1, 0, '', NULL),
-(6454476, 3, '53,56', '2024-07-22 22:29:59', '1,1', 449.00, -1, 0, '', 'upload/upload/10 pcs Instax Inspired Photo Print.jpg,upload/upload/logo.jpg'),
-(6454477, 3, '43,56', '2024-07-22 22:30:49', '1,1', 483.00, -1, 0, '', ',upload/upload/BINI JolliBINI With Backprint  9pcs.jpeg'),
-(6454479, 3, '53,43,56', '2024-07-22 22:32:28', '1,1,1', 533.00, -1, 0, '', 'upload/upload/logo.jpg,,upload/upload/ENHYPEN BOYFRIEND POLA SET REPOST.jpg'),
-(6454480, 3, '78', '2024-07-22 22:42:24', '1', 1.00, -1, 0, '', 'upload/upload/logo.jpg');
+(6454484, 1, '53,43', '2024-07-22 23:29:21', '1,2', 218.00, 0, 0, '', 'upload/upload/Screen-Shot-2021-05-21-at-4.59.38-PM-1024x620.png,'),
+(6454485, 3, '1,48,50', '2024-07-22 23:37:09', '1,1,1', 359.00, -2, 0, '', ',,'),
+(6454486, 3, '53', '2024-07-22 23:37:21', '1', 50.00, 1, 4, '', 'upload/upload/451544277_122164775972203090_6242653823299363468_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -236,7 +230,13 @@ INSERT INTO `payment` (`payment_id`, `order_id`, `customer_id`, `payment_date`, 
 (435457, 6454477, 3, '2024-07-22 22:30:49', 483.00, 'Maya'),
 (435458, 6454478, 3, '2024-07-22 22:30:52', 0.00, 'Maya'),
 (435459, 6454479, 3, '2024-07-22 22:32:28', 533.00, 'Maya'),
-(435460, 6454480, 3, '2024-07-22 22:42:24', 1.00, 'Maya');
+(435460, 6454480, 3, '2024-07-22 22:42:24', 1.00, 'Maya'),
+(435461, 6454481, 3, '2024-07-22 23:18:56', 139.00, 'Debit Card'),
+(435462, 6454482, 3, '2024-07-22 23:20:57', 399.00, 'Cash On Delivery'),
+(435463, 6454483, 1, '2024-07-22 23:26:55', 159.00, 'Debit Card'),
+(435464, 6454484, 1, '2024-07-22 23:29:21', 218.00, 'BPI'),
+(435465, 6454485, 3, '2024-07-22 23:37:09', 359.00, 'Maya'),
+(435466, 6454486, 3, '2024-07-22 23:37:21', 50.00, 'BPI');
 
 -- --------------------------------------------------------
 
@@ -337,7 +337,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`UserID`, `FName`, `username`, `password`, `email`, `phone`, `address`, `attempt`, `block`, `admin`, `profile`, `verification`, `verification_code`) VALUES
 (1, 'EnVision Print', 'admin', 'admin', 'envision.print@gmail.com', '09911180769', 'Tilapayong, Baliuag, Bulacan', 0, 0, 1, 'upload/profile/logo.ico', '1', '72240'),
 (3, 'Kim Jisoo', 'Jisoo', '$2y$10$5C5gf8EuGrhIrv0RtFsAxOyrF6iSe8E71HaNOdMlRdunw88LtA56K', 'lance.musngi@gmail.com', '09911180766', 'Sanbon-dong, Gunpo-si, South Korea', 0, 0, 0, 'upload/profile/449612955_7814687338627856_4325307237619088894_n.jpg', '1', '18046'),
-(13, 'Test', 'test', '$2y$10$5C5gf8EuGrhIrv0RtFsAxOyrF6iSe8E71HaNOdMlRdunw88LtA56K', 'lanceka456@gmail.com', '09911180766', 'Sanbon-dong, Gunpo-si, South Korea', 0, 0, 0, 'upload/profile/BINI Cherry on Top With Backprint 9pcs.jpeg', '1', '18046');
+(13, 'Test', 'test', '$2y$10$5C5gf8EuGrhIrv0RtFsAxOyrF6iSe8E71HaNOdMlRdunw88LtA56K', 'lanceka456@gmail.com', '09911180766', 'Sanbon-dong, Gunpo-si, South Korea', 0, 0, 0, 'upload/profile/BINI Cherry on Top With Backprint 9pcs.jpeg', '1', '18046'),
+(14, 'jennie kim', 'jennie', '$2y$10$3chD6WuwCt/iH8vT7RAQI.0OZVwe8s7Pqw1gPvJoV5piuxvaf.vLC', 'supertae456@gmail.com', '09911180766', 'Tilapayong, Baliuag, Bulacan', 0, 0, 0, 'upload/profile/BINIVERSE Back-to-Back With Backprint.jpeg', '1', '85759');
 
 --
 -- Indexes for dumped tables
@@ -422,7 +423,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -446,7 +447,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6454481;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6454487;
 
 --
 -- AUTO_INCREMENT for table `page`
@@ -458,7 +459,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435461;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435467;
 
 --
 -- AUTO_INCREMENT for table `promo_codes`
@@ -476,7 +477,7 @@ ALTER TABLE `slideshow`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
